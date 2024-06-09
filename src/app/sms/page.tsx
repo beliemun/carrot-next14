@@ -1,4 +1,4 @@
-import { FormInput, FormButton, Icons } from "@/components";
+import { Input, Button, Icons } from "@/components";
 
 export default () => {
   return (
@@ -9,11 +9,11 @@ export default () => {
       </div>
       <div className="p-4 w-full">
         <div className="space-y-4">
-          <FormInput name="phone" icon={Icons.User} placeholder="전화번호" type="number" required />
-          <FormInput name="code" icon={Icons.Password} placeholder="인증번호" type="number" required />
+          <Input name="phone" icon={Icons.User} placeholder="전화번호" type="number" required />
+          <Input name="code" icon={Icons.Password} placeholder="인증번호" type="number" required />
         </div>
         <div className="space-y-4 mt-4">
-          <FormButton className="w-full" type="Button" href="#" label="인증" />
+          <Button className="w-full" type="Button" href="#" label="인증" />
         </div>
       </div>
     </main>

@@ -1,6 +1,6 @@
 "use client";
 
-import { FormInput, FormButton, Icons } from "@/components";
+import { Input, Button, Icons } from "@/components";
 import { useFormState } from "react-dom";
 import { SignUp } from "../actions";
 
@@ -14,37 +14,41 @@ export default () => {
       </div>
       <div className="p-4 w-full">
         <form className="space-y-4" action={action}>
-          <FormInput name="name" icon={Icons.Email} placeholder="이름" type="text" required errors={state?.fieldErrors.name} />
-          <FormInput
-            name="email"
-            icon={Icons.User}
-            placeholder="이메일"
-            type="email"
+          <Input
+            name="name"
+            icon={Icons.Email}
+            placeholder="이름"
+            type="text"
+            minLength={4}
+            maxLength={12}
             required
-            errors={state?.fieldErrors.email}
+            errors={state?.fieldErrors.name}
           />
-          <FormInput
+          <Input name="email" icon={Icons.User} placeholder="이메일" type="email" required errors={state?.fieldErrors.email} />
+          <Input
             name="password"
             icon={Icons.Password}
             placeholder="비밀번호"
             type="password"
+            minLength={4}
             required
             errors={state?.fieldErrors.password}
           />
-          <FormInput
+          <Input
             name="confirm"
             icon={Icons.Password}
             placeholder="비밀번호 확인"
             type="password"
+            minLength={4}
             required
             errors={state?.fieldErrors.confirm}
           />
-          <FormButton className="w-full" type="Button" label="계정 생성" />
+          <Button className="w-full" type="Button" label="계정 생성" />
         </form>
         <div className="divider" />
         <div className="space-y-4">
-          <FormButton className="w-full" type="Link" href="/" icon={Icons.Code} label="깃허브로 가입" />
-          <FormButton className="w-full" type="Link" href="/sms" icon={Icons.ChatBubble} label="전화 번호로 가입" />
+          <Button className="w-full" type="Link" href="/" icon={Icons.Code} label="깃허브로 가입" />
+          <Button className="w-full" type="Link" href="/sms" icon={Icons.ChatBubble} label="전화 번호로 가입" />
         </div>
       </div>
     </main>

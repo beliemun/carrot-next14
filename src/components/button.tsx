@@ -5,11 +5,11 @@ import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
 import { useFormStatus } from "react-dom";
 
-type FormButtonType = "Button" | "Link";
+type ButtonType = "Button" | "Link";
 
-interface FormButtonProps {
+interface ButtonProps {
   className?: string;
-  type: FormButtonType;
+  type: ButtonType;
   label: string;
   href?: Url;
   icon?: React.ReactNode;
@@ -17,7 +17,7 @@ interface FormButtonProps {
   onClick?: () => Promise<void>;
 }
 
-export const FormButton = ({ className = "", type, label, href, icon, disabled, onClick }: FormButtonProps) => {
+export const Button = ({ className = "", type, label, href, icon, disabled, onClick }: ButtonProps) => {
   // useFormStatus는 반드시 Action이 걸린 Form 내부에서만 사용이 가능하다.
   const { pending } = useFormStatus();
 
@@ -32,9 +32,9 @@ export const FormButton = ({ className = "", type, label, href, icon, disabled, 
     );
   };
 
-  return type === "Link" && href ? (
+  return type === "Link" ? (
     <Link
-      href={href}
+      href={href ?? "#"}
       className={cn(
         "btn",
         disabled ? "btn-disabled" : "btn-primary",

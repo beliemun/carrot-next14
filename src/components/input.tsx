@@ -1,21 +1,19 @@
 import { cn } from "@/shared/utils";
+import { InputHTMLAttributes } from "react";
 
-interface FormInputProps {
+interface InputProps {
   className?: string;
   name: string;
   icon?: React.ReactNode;
-  type?: React.HTMLInputTypeAttribute | undefined;
-  placeholder?: string | undefined;
-  required?: boolean | undefined;
   errors?: string[] | undefined;
 }
 
-export const FormInput = ({ className = "", name, icon, type, placeholder, required, errors }: FormInputProps) => {
+export const Input = ({ className = "", errors, name, icon, ...rest }: InputProps & InputHTMLAttributes<HTMLInputElement>) => {
   return (
     <div className={cn("space-y-2", className)}>
       <label className={"input input-bordered flex items-center gap-2"}>
         {icon}
-        <input name={name} type={type} className="grow" placeholder={placeholder} required={required} />
+        <input name={name} className="grow" {...rest} />
       </label>
       {errors?.map((error, index) => (
         <p className="text-error text-sm" key={index}>

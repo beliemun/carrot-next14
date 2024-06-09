@@ -1,6 +1,6 @@
 "use client";
 
-import { FormInput, FormButton, Icons } from "@/components";
+import { Input, Button, Icons } from "@/components";
 import { signIn } from "../actions";
 import { useFormState } from "react-dom";
 
@@ -14,14 +14,14 @@ export default () => {
       </div>
       <div className="p-4 w-full">
         <form action={action} className="space-y-4">
-          <FormInput name="email" icon={Icons.User} placeholder="이메일" type="email" required />
-          <FormInput name="password" icon={Icons.Password} placeholder="비밀번호" type="password" required />
-          <FormButton className="w-full" type="Button" label="로그인" />
+          <Input name="email" icon={Icons.User} placeholder="이메일" type="email" required />
+          <Input name="password" icon={Icons.Password} placeholder="비밀번호" type="password" required />
+          <Button className="w-full" type="Button" label="로그인" />
         </form>
         <div className="divider" />
         <div className="space-y-4">
-          <FormButton className="w-full" type="Link" href="#" icon={Icons.Code} label="깃허브로 계속" />
-          <FormButton className="w-full" type="Link" href="/sms" icon={Icons.ChatBubble} label="SMS로 계속" />
+          <Button className="w-full" type="Link" href="#" icon={Icons.Code} label="깃허브로 계속" />
+          <Button className="w-full" type="Link" href="/sms" icon={Icons.ChatBubble} label="SMS로 계속" />
         </div>
       </div>
     </main>
