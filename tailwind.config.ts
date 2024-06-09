@@ -8,7 +8,7 @@ const config: Config = {
   ],
   theme: {},
   // 외부에서 만든 base, utilities, components를 주입시킬 수 있다.
-  plugins: [require("daisyui")],
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {
     themes: ["light", "dark", "forest"],
   },
