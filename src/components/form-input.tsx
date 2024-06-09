@@ -1,4 +1,7 @@
+import { cn } from "@/shared/utils";
+
 interface FormInputProps {
+  className?: string;
   name: string;
   icon?: React.ReactNode;
   type?: React.HTMLInputTypeAttribute | undefined;
@@ -7,10 +10,10 @@ interface FormInputProps {
   errors?: string[] | undefined;
 }
 
-export const FormInput = ({ name, icon, type, placeholder, required, errors }: FormInputProps) => {
+export const FormInput = ({ className = "", name, icon, type, placeholder, required, errors }: FormInputProps) => {
   return (
-    <div className="space-y-2">
-      <label className="input input-bordered flex items-center gap-2">
+    <div className={cn("space-y-2", className)}>
+      <label className={"input input-bordered flex items-center gap-2"}>
         {icon}
         <input name={name} type={type} className="grow" placeholder={placeholder} required={required} />
       </label>

@@ -1,11 +1,10 @@
 "use server";
 
-import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 
-export const signInAction = async (prev: any, formData: FormData) => {
+export const signIn = async (prev: any, formData: FormData) => {
+  console.log("prev:", prev);
+  console.log("formData:", formData.get("email"), formData.get("password"));
   await new Promise((resolve) => setTimeout(resolve, 2000));
-  //   console.log(formData.get("email"), formData.get("password"));
-  return {
-    errors: [],
-  };
+  return NextResponse.json({ ok: true });
 };
