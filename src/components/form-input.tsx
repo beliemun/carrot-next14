@@ -1,6 +1,5 @@
-import { EnvelopeIcon, LockClosedIcon, UserIcon } from "@heroicons/react/16/solid";
-
 interface FormInputProps {
+  name: string;
   icon?: React.ReactNode;
   type?: React.HTMLInputTypeAttribute | undefined;
   placeholder?: string | undefined;
@@ -8,12 +7,12 @@ interface FormInputProps {
   errors?: string[] | undefined;
 }
 
-export const FormInput = ({ icon, type, placeholder, required, errors }: FormInputProps) => {
+export const FormInput = ({ name, icon, type, placeholder, required, errors }: FormInputProps) => {
   return (
     <div className="space-y-2">
       <label className="input input-bordered flex items-center gap-2">
         {icon}
-        <input type={type} className="grow" placeholder={placeholder} required={required} />
+        <input name={name} type={type} className="grow" placeholder={placeholder} required={required} />
       </label>
       {errors?.map((error, index) => (
         <p className="text-error text-sm" key={index}>

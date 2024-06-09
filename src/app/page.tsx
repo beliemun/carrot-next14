@@ -1,5 +1,6 @@
 "use client";
 
+import { FormButton } from "@/components";
 import { cn } from "@/shared/utils";
 import Link from "next/link";
 
@@ -12,9 +13,7 @@ export default () => {
         <p className="text-xl">당근 마켓에 어서오세요!</p>
       </div>
       <div className="w-full col-center p-4 space-y-4">
-        <Link className="btn btn-primary" href={"/sign-up"}>
-          새로 시작하기
-        </Link>
+        <FormButton type="Link" href="/sign-in" label="로그인" />
         <div className="row-center space-x-2">
           <p>이미 계정이 있나요?</p>
           <Link className="text-primary" href={"/sign-in"}>

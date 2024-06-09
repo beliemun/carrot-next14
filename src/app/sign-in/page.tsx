@@ -1,6 +1,11 @@
+"use client";
+
 import { FormInput, FormButton, Icons } from "@/components";
+import { signInAction } from "../actions";
+import { useFormState } from "react-dom";
 
 export default () => {
+  const [state, action] = useFormState(signInAction, null);
   return (
     <main className="h-screen w-full">
       <div className="p-4">
@@ -8,15 +13,22 @@ export default () => {
         <p className="mt-2">로그인을 위해 이메일과 비밀번호를 입력하세요.</p>
       </div>
       <div className="p-4 w-full">
+        <form action={action} className="space-y-4">
+          <FormInput name="email" icon={Icons.User} placeholder="이메일" type="email" required errors={state?.errors ?? []} />
+          <FormInput
+            name="password"
+            icon={Icons.Password}
+            placeholder="비밀번호"
+            type="password"
+            required
+            errors={state?.errors ?? []}
+          />
+          <FormButton type="Button" label="로그인" />
+        </form>
+        <div className="divider" />
         <div className="space-y-4">
-          <FormInput icon={Icons.User} placeholder="이메일" type="email" required />
-          <FormInput icon={Icons.Password} placeholder="비밀번호" type="password" required />
-        </div>
-        <div className="space-y-4 mt-4">
-          <FormButton href="#" label="로그인" />
-          <div className="divider" />
-          <FormButton href="/" icon={Icons.Code} label="깃허브로 계속" />
-          <FormButton href="/sms" icon={Icons.ChatBubble} label="SMS로 계속" />
+          <FormButton type="Link" href="#" icon={Icons.Code} label="깃허브로 계속" />
+          <FormButton type="Link" href="/sms" icon={Icons.ChatBubble} label="SMS로 계속" />
         </div>
       </div>
     </main>
