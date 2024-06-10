@@ -48,7 +48,7 @@ export default () => {
         <div className="divider" />
         <div className="space-y-4">
           <Button className="w-full" type="Link" href="/" icon={Icons.Code} label="깃허브로 가입" />
-          <Button className="w-full" type="Link" href="/sms" icon={Icons.ChatBubble} label="전화 번호로 가입" />
+          <Button className="w-full" type="Link" href="/sign-in-by-sms" icon={Icons.ChatBubble} label="전화 번호로 가입" />
         </div>
       </div>
     </main>

@@ -1,3 +1,3 @@
 export * from "./sign-in";
 export * from "./sign-up";
-export * from "./sms-verification";
+export * from "./sign-in-by-sms";

@@ -9,3 +9,6 @@ export const PASSWORD_MIN_LENGTH = 4;
 export const PASSWORD_MIN_LENGTH_ERROR = "비밀번호는 문자만 입력이 가능합니다.";
 export const PASSWORD_REGEX = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/);
 export const PASSWORD_REGEX_ERROR = "비밀번호는 소문자, 대문자, 숫자, 특수문자를 포함해야 합니다.";
+export const PHONE_INVALID_ERROR = "사용할 수 없는 전화번호 입니다.";
+export const CODE_INVALID_ERROR = "숫자만 입력해주세요.";
+export const CODE_MIN_MAX_ERROR = "여섯 자리 숫자를 입력해주세요.";

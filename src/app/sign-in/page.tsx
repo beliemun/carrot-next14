@@ -29,7 +29,7 @@ export default () => {
         <div className="divider" />
         <div className="space-y-4">
           <Button className="w-full" type="Link" href="#" icon={Icons.Code} label="깃허브로 계속" />
-          <Button className="w-full" type="Link" href="/sms" icon={Icons.ChatBubble} label="SMS로 계속" />
+          <Button className="w-full" type="Link" href="/sign-in-by-sms" icon={Icons.ChatBubble} label="SMS로 계속" />
         </div>
       </div>
     </main>
