@@ -1,0 +1,11 @@
+export const NAME_MIN_LENGTH = 4;
+export const NAME_MIN_LENGTH_ERROR = "이름은 최소 4글자를 입력해야 합니다.";
+export const NAME_MAX_LENGTH = 12;
+export const NAME_MAX_LENGTH_ERROR = "이름은 최대 12글자까지 입력이 가능합니다.";
+export const NAME_REFINE_ERROR = "사용할 수 없는 이름입니다.";
+export const EMAIL_INVALID = "이메일 형식이 아닙니다.";
+export const PASSWORD_INVALID_ERROR = "비밀번호는 문자만 입력이 가능합니다.";
+export const PASSWORD_MIN_LENGTH = 4;
+export const PASSWORD_MIN_LENGTH_ERROR = "비밀번호는 문자만 입력이 가능합니다.";
+export const PASSWORD_REGEX = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/);
+export const PASSWORD_REGEX_ERROR = "비밀번호는 소문자, 대문자, 숫자, 특수문자를 포함해야 합니다.";

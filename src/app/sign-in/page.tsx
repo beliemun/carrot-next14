@@ -14,8 +14,16 @@ export default () => {
       </div>
       <div className="p-4 w-full">
         <form action={action} className="space-y-4">
-          <Input name="email" icon={Icons.User} placeholder="이메일" type="email" required />
-          <Input name="password" icon={Icons.Password} placeholder="비밀번호" type="password" required />
+          <Input name="email" icon={Icons.User} placeholder="이메일" type="email" required errors={state?.fieldErrors.email} />
+          <Input
+            name="password"
+            icon={Icons.Password}
+            placeholder="비밀번호"
+            type="password"
+            minLength={4}
+            required
+            errors={state?.fieldErrors.password}
+          />
           <Button className="w-full" type="Button" label="로그인" />
         </form>
         <div className="divider" />

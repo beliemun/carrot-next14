@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/shared/utils";
+import { cn } from "@/lib/utils";
 import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
 import { useFormStatus } from "react-dom";
