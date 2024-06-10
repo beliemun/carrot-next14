@@ -82,11 +82,14 @@ export const SignUp = async (prev: any, formData: FormData) => {
     });
     // log the user in
     const cookie = await getIronSession(cookies(), {
+      // iron session은 "carrot-next14"이라는 쿠키를 찾을 것이고 없으면 새로 생성한다.
+      // password로 암호화를 하고, password로 복호화도 한다.
       cookieName: "carrot-next14",
       password: process.env.COOKIE_PASSWORD!,
     });
     // @ts-ignore
     cookie.id = user.id;
+    // save를 할 때 암화화가 진행된다.
     await cookie.save();
     // redirect "/home"
     redirect("/profile");
