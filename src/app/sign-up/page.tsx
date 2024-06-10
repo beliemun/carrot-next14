@@ -15,14 +15,14 @@ export default () => {
       <div className="p-4 w-full">
         <form className="space-y-4" action={action}>
           <Input
-            name="name"
+            name="username"
             icon={Icons.Email}
             placeholder="이름"
             type="text"
             minLength={4}
             maxLength={12}
             required
-            errors={state?.fieldErrors.name}
+            errors={state?.fieldErrors.username}
           />
           <Input name="email" icon={Icons.User} placeholder="이메일" type="email" required errors={state?.fieldErrors.email} />
           <Input

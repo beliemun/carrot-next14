@@ -1,8 +1,6 @@
-"use client";
-
 import { Button } from "@/components";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
+import "@/lib/db";
 
 export default () => {
   return (

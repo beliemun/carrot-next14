@@ -1,59 +1,84 @@
 "use server";
 
-import {
-  EMAIL_INVALID,
-  NAME_MAX_LENGTH,
-  NAME_MAX_LENGTH_ERROR,
-  NAME_MIN_LENGTH,
-  NAME_MIN_LENGTH_ERROR,
-  NAME_REFINE_ERROR,
-  PASSWORD_MIN_LENGTH,
-  PASSWORD_MIN_LENGTH_ERROR,
-  PASSWORD_REGEX,
-  PASSWORD_REGEX_ERROR,
-} from "@/lib/constants";
+import { MAX_LENGTH, MIN_LENGTH, PASSWORD_REGEX, MSG } from "@/lib/constants";
+import db from "@/lib/db";
 // zod는 백엔드용 validation library이다.
 import { z } from "zod";
+import bcrypt from "bcrypt";
+import { hash } from "crypto";
 
-const refineList = ["admin", "test"];
-const validateName = (name: string) => !refineList.includes(name);
+// validation 영역
+const forbiddenUsernameList = ["admin", "test"];
+const validateForbiddenUsername = (username: string) => !forbiddenUsernameList.includes(username);
 const valiedatePassword = ({ password, confirm }: { password: string; confirm: string }) => password === confirm;
+const validateExistedUsername = async (username: string) => {
+  const existedUser = await db.user.findUnique({
+    where: { username },
+    select: { id: true },
+  });
+  return !Boolean(existedUser);
+};
+const validateExistedEmail = async (email: string) => {
+  const existedUser = await db.user.findUnique({
+    where: { email },
+    select: { id: true },
+  });
+  return !Boolean(existedUser);
+};
 
 // required는 기본값, optional() 값을 주면 선택값.
 const formSchema = z
   .object({
-    name: z
+    username: z
       .string()
-      .min(NAME_MIN_LENGTH, NAME_MIN_LENGTH_ERROR)
-      .max(NAME_MAX_LENGTH, NAME_MAX_LENGTH_ERROR)
+      .min(MIN_LENGTH, MSG.MIN_LENGTH_4)
+      .max(MAX_LENGTH, MSG.MAX_LENGTH_12)
       .toLowerCase()
       .trim()
-      .refine(validateName, NAME_REFINE_ERROR),
-    email: z.string().email({ message: EMAIL_INVALID }),
-    password: z.string().min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_ERROR).regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
-    confirm: z.string().min(PASSWORD_MIN_LENGTH, PASSWORD_MIN_LENGTH_ERROR),
+      .refine(validateForbiddenUsername, MSG.FOBIDDEN_USERNAME)
+      // 여기까지가 일반적인 input 값에 대한 validation
+      // 여기서부터는 백엔드에서 db를 생성하기 전에 이미 있는 값인지 판별하는 validation.
+      // validation 영역이 확실하게 구분된다.
+      .refine(validateExistedUsername, MSG.EXISTED_USERNAME),
+    email: z.string().email({ message: MSG.INVALID_EMAIL }).refine(validateExistedEmail, MSG.EXISTED_EMAIL),
+    password: z.string().min(MIN_LENGTH, MSG.MIN_LENGTH_4),
+    // .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR)
+    confirm: z.string().min(MIN_LENGTH, MSG.MIN_LENGTH_4),
   })
   .refine(valiedatePassword, {
     // 이곳에서 나타나는 에러는 필드(fieldErrors)가 아닌 폼(formErrors)에서 일어났다고 알려주므로,
     // path를 통해 어떤 필드의 에러인지 선택해줄 수 있다.
-    message: "두 비밀번호가 일치하지 않습니다.",
+    message: MSG.PASSWORD_MISMATCH,
     path: ["confirm"],
   });
 
 export const SignUp = async (prev: any, formData: FormData) => {
   const data = {
-    name: formData.get("name"),
+    username: formData.get("username"),
     email: formData.get("email"),
     password: formData.get("password"),
     confirm: formData.get("confirm"),
   };
-  //   zod의 parse는 erorr를 throw하지만 safeParse는 결과 값을 줌
-  const result = formSchema.safeParse(data);
-  //   error의 flatten을 사용하면 erorr 내용을 요약해서 볼 수 있음
+  // zod의 parse는 erorr를 throw하지만 safeParse는 결과 값을 줌
+  const result = await formSchema.safeParseAsync(data);
+  // error의 flatten을 사용하면 erorr 내용을 요약해서 볼 수 있음
   if (result.error) {
-    console.log(result.error?.flatten());
     return result.error?.flatten();
   } else {
-    console.log(result.data);
+    // hash password
+    const { username, email, password } = result.data;
+    const hashedPassword = await bcrypt.hash(result.data.password, 12);
+    const user = await db.user.create({
+      data: {
+        username,
+        email,
+        passwrod: hashedPassword,
+      },
+      select: { id: true },
+    });
+    console.log(user);
+    // save the user to db
+    // log the user in
+    // redirect "/home"
   }
 };
