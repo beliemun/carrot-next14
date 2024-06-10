@@ -6,6 +6,9 @@ import db from "@/lib/db";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { hash } from "crypto";
+import { getIronSession } from "iron-session";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 // validation 영역
 const forbiddenUsernameList = ["admin", "test"];
@@ -67,7 +70,8 @@ export const SignUp = async (prev: any, formData: FormData) => {
   } else {
     // hash password
     const { username, email, password } = result.data;
-    const hashedPassword = await bcrypt.hash(result.data.password, 12);
+    const hashedPassword = await bcrypt.hash(password, 12);
+    // save the user to db
     const user = await db.user.create({
       data: {
         username,
@@ -76,9 +80,15 @@ export const SignUp = async (prev: any, formData: FormData) => {
       },
       select: { id: true },
     });
-    console.log(user);
-    // save the user to db
     // log the user in
+    const cookie = await getIronSession(cookies(), {
+      cookieName: "carrot-next14",
+      password: process.env.COOKIE_PASSWORD!,
+    });
+    // @ts-ignore
+    cookie.id = user.id;
+    await cookie.save();
     // redirect "/home"
+    redirect("/profile");
   }
 };
