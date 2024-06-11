@@ -5,29 +5,13 @@ import db from "@/lib/db";
 // zod는 백엔드용 validation library이다.
 import { z } from "zod";
 import bcrypt from "bcrypt";
-import { hash } from "crypto";
-import { getIronSession } from "iron-session";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import getSession from "@/lib/session";
 
 // validation 영역
 const forbiddenUsernameList = ["admin", "test"];
 const validateForbiddenUsername = (username: string) => !forbiddenUsernameList.includes(username);
 const valiedatePassword = ({ password, confirm }: { password: string; confirm: string }) => password === confirm;
-const validateExistedUsername = async (username: string) => {
-  const existedUser = await db.user.findUnique({
-    where: { username },
-    select: { id: true },
-  });
-  return !Boolean(existedUser);
-};
-const validateExistedEmail = async (email: string) => {
-  const existedUser = await db.user.findUnique({
-    where: { email },
-    select: { id: true },
-  });
-  return !Boolean(existedUser);
-};
 
 // required는 기본값, optional() 값을 주면 선택값.
 const formSchema = z
@@ -38,15 +22,47 @@ const formSchema = z
       .max(MAX_LENGTH, MSG.MAX_LENGTH_12)
       .toLowerCase()
       .trim()
-      .refine(validateForbiddenUsername, MSG.FOBIDDEN_USERNAME)
-      // 여기까지가 일반적인 input 값에 대한 validation
-      // 여기서부터는 백엔드에서 db를 생성하기 전에 이미 있는 값인지 판별하는 validation.
-      // validation 영역이 확실하게 구분된다.
-      .refine(validateExistedUsername, MSG.EXISTED_USERNAME),
-    email: z.string().email({ message: MSG.INVALID_EMAIL }).refine(validateExistedEmail, MSG.EXISTED_EMAIL),
+      .refine(validateForbiddenUsername, MSG.FOBIDDEN_USERNAME),
+    email: z.string().email({ message: MSG.INVALID_EMAIL }),
     password: z.string().min(MIN_LENGTH, MSG.MIN_LENGTH_4),
-    // .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR)
     confirm: z.string().min(MIN_LENGTH, MSG.MIN_LENGTH_4),
+  })
+
+  // 기존의 모든 refine을 실행하여 db를 hit하는 것을 방지하기 위해서 superRefine을 사용한다.
+  // RefinementCtx는 일종의 에러 묶음이다.
+  // validate를 할 때, db를 hit하는 부분은 순차적으로 superRefine으로 만들어서 불필요한 db hit이 발생하지 않도록 만든다.
+  .superRefine(async ({ username }, ctx) => {
+    const user = await db.user.findUnique({
+      where: { username },
+      select: { id: true },
+    });
+    if (user) {
+      // Refine Context의 addIssue()를 통해 에러를 추가할 수 있다.
+      ctx.addIssue({
+        code: "custom",
+        message: MSG.EXISTED_USERNAME,
+        // object를 대상으로 refine을 하기 때문에 오류가 발생된 feild를 지정한다.
+        path: ["username"],
+        fatal: true,
+      });
+      // Zod를 NEVER로 리턴하고 fatal을 true로 설정하면 이하의 refine은 실행되지 않는다.
+      return z.NEVER;
+    }
+  })
+  .superRefine(async ({ email }, ctx) => {
+    const user = await db.user.findUnique({
+      where: { email },
+      select: { id: true },
+    });
+    if (user) {
+      ctx.addIssue({
+        code: "custom",
+        message: MSG.EXISTED_EMAIL,
+        path: ["email"],
+        fatal: true,
+      });
+      return z.NEVER;
+    }
   })
   .refine(valiedatePassword, {
     // 이곳에서 나타나는 에러는 필드(fieldErrors)가 아닌 폼(formErrors)에서 일어났다고 알려주므로,
@@ -81,17 +97,10 @@ export const SignUp = async (prev: any, formData: FormData) => {
       select: { id: true },
     });
     // log the user in
-    const cookie = await getIronSession(cookies(), {
-      // iron session은 "carrot-next14"이라는 쿠키를 찾을 것이고 없으면 새로 생성한다.
-      // password로 암호화를 하고, password로 복호화도 한다.
-      cookieName: "carrot-next14",
-      password: process.env.COOKIE_PASSWORD!,
-    });
-    // @ts-ignore
-    cookie.id = user.id;
+    const session = await getSession();
+    session.id = user.id;
     // save를 할 때 암화화가 진행된다.
-    await cookie.save();
-    // redirect "/home"
+    await session.save();
     redirect("/profile");
   }
 };

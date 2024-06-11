@@ -9,6 +9,7 @@ export const MSG = {
   FOBIDDEN_USERNAME: "사용이 금지된 이름입니다.",
   EXISTED_USERNAME: "이미 존재하는 이름입니다.",
   EXISTED_EMAIL: "이미 존재하는 이메일입니다.",
+  NOT_EXISTED_EMAIL: "존재하지 않은 이메일입니다.",
   ONLY_TEXT: "문자만 입력이 가능합니다.",
   ONLY_NUMBER: "숫자만 입력이 가능합니다.",
   INVALID_EMAIL: "이메일 형식이 아닙니다.",
@@ -16,4 +17,5 @@ export const MSG = {
   PASSWORD_MISMATCH: "두 비밀번호가 일치하지 않습니다.",
   UNABLED_NUMBER: "사용할 수 없는 전화번호 입니다.",
   NOT_ENOUGH_CODE: "여섯 자리 숫자를 입력해주세요.",
+  WRONG_PASSWORD: "비밀번호가 틀렸습니다.",
 };
