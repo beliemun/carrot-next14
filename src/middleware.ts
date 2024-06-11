@@ -9,7 +9,9 @@ type Routes = {
 const pulbicOnlyUrls: Routes = {
   "/": true,
   "/sign-in": true,
-  "/sign-in-by-sms": true,
+  "/sign-in/sms": true,
+  "/sign-in/github": true,
+  "/sign-in/github/complete": true,
   "/sign-up": true,
 };
 

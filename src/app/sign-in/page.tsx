@@ -4,7 +4,7 @@ import { Input, Button, Icons } from "@/components";
 import { signIn } from "../actions";
 import { useFormState } from "react-dom";
 
-export default () => {
+export default function SignIn() {
   const [state, action] = useFormState(signIn, null);
   return (
     <main className="h-screen w-full">
@@ -28,10 +28,10 @@ export default () => {
         </form>
         <div className="divider" />
         <div className="space-y-4">
-          <Button className="w-full" type="Link" href="#" icon={Icons.Code} label="깃허브로 계속" />
-          <Button className="w-full" type="Link" href="/sign-in-by-sms" icon={Icons.ChatBubble} label="SMS로 계속" />
+          <Button className="w-full" type="Link" href="/sign-in/github" icon={Icons.Code} label="깃허브로 계속" />
+          <Button className="w-full" type="Link" href="/sign-in/sms" icon={Icons.ChatBubble} label="SMS로 계속" />
         </div>
       </div>
     </main>
   );
-};
+}

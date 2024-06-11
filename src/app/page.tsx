@@ -2,7 +2,7 @@ import { Button } from "@/components";
 import Link from "next/link";
 import "@/lib/db";
 
-export default () => {
+export default function Home() {
   return (
     <main className="col-center h-screen">
       <div className="flex-1 col-center space-y-4">
@@ -21,4 +21,4 @@ export default () => {
       </div>
     </main>
   );
-};
+}

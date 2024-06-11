@@ -1,15 +1,15 @@
 "use client";
 
+import { signInBySms } from "@/app/actions";
 import { Input, Button, Icons } from "@/components";
 import { useFormState } from "react-dom";
-import { signInBySms } from "../actions";
 
 const initialState = {
   token: false,
   message: undefined,
 };
 
-export default () => {
+export default function SignInBySms() {
   const [state, action] = useFormState(signInBySms, initialState);
   return (
     <main className="h-screen w-full">
@@ -46,4 +46,4 @@ export default () => {
       </div>
     </main>
   );
-};
+}

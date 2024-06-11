@@ -2,7 +2,7 @@ import { Button } from "@/components";
 import { signOut } from "../actions";
 import { getUser } from "@/lib/get-user";
 
-export default async () => {
+export default async function Profile() {
   const user = await getUser();
   return (
     <main className="h-screen w-full">
@@ -16,4 +16,4 @@ export default async () => {
       </div>
     </main>
   );
-};
+}

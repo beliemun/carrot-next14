@@ -1,4 +1,4 @@
-export default () => {
+export default function Products() {
   return (
     <main className="h-screen w-full">
       <div className="p-4">
@@ -7,4 +7,4 @@ export default () => {
       </div>
     </main>
   );
-};
+}
