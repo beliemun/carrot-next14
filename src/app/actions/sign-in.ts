@@ -35,7 +35,13 @@ export const signIn = async (prev: any, formData: FormData) => {
       where: { email },
       select: { id: true, passwrod: true },
     });
-
+    if (!user) {
+      return {
+        fieldErrors: {
+          email: [MSG.NOT_EXISTED_EMAIL],
+        },
+      };
+    }
     const ok = await bcrypt.compare(password, user?.passwrod ?? "");
     if (ok) {
       const session = await getSession();
