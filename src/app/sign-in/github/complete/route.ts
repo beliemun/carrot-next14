@@ -4,6 +4,7 @@ import { notFound, redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 export const GET = async (request: NextRequest) => {
+  // 1단계: 사용자가 깃허브에서 로그인을 허용하면 code가 나오는데, code로 url을 생성한다.
   const code = request.nextUrl.searchParams.get("code");
   if (!code) {
     return notFound();
@@ -16,6 +17,7 @@ export const GET = async (request: NextRequest) => {
   };
   const formattedParams = new URLSearchParams(params).toString();
   const url = `${BASE_URL}?${formattedParams}`;
+  //   2단계: access token으로 post 요청을 하면 scope에 설정했던 정보를 받을 수 있다.
   const accessTokenResponse = await fetch(url, {
     method: "POST",
     headers: { Accept: "application/json" },
@@ -24,6 +26,7 @@ export const GET = async (request: NextRequest) => {
   if (error) {
     return Response.redirect(new URL("/", request.url));
   }
+  //   3단계: access token을 헤더에 넣고 get 요청을 하면 scope에 설정했던 정보를 받을 수 있다.
   const userProfileResponse = await fetch("https://api.github.com/user", {
     headers: {
       Authorization: `Bearer ${access_token}`,
