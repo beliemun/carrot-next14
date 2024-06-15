@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { Alert } from "@/components/common";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html lang="en" data-theme="forest" suppressHydrationWarning>
       <body className={cn(inter.className, "flex flex-col items-center")}>
         <div className="w-full h-screen max-w-sm bg-base-300">{children}</div>
+        <Alert />
       </body>
     </html>
   );

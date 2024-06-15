@@ -6,12 +6,13 @@ import db from "@/lib/db";
 import { z } from "zod";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
-import getSession from "@/lib/session";
+import { getSession } from "@/lib/session";
 
 // validation 영역
 const forbiddenUsernameList = ["admin", "test"];
 const validateForbiddenUsername = (username: string) => !forbiddenUsernameList.includes(username);
-const valiedatePassword = ({ password, confirm }: { password: string; confirm: string }) => password === confirm;
+const valiedatePassword = ({ password, confirm }: { password: string; confirm: string }) =>
+  password === confirm;
 
 // required는 기본값, optional() 값을 주면 선택값.
 const formSchema = z

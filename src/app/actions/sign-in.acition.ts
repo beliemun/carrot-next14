@@ -4,8 +4,7 @@ import { MIN_LENGTH, MSG, PASSWORD_REGEX } from "@/lib/constants";
 import db from "@/lib/db";
 import { z } from "zod";
 import bcrypt from "bcrypt";
-import getSession from "@/lib/session";
-import { redirect } from "next/navigation";
+import { signUserIn } from "@/lib/session";
 
 const validateExistedEmail = async (email: string) => {
   const existedEmail = await db.user.findUnique({
@@ -16,12 +15,16 @@ const validateExistedEmail = async (email: string) => {
 };
 
 const formSchema = z.object({
-  email: z.string().email({ message: MSG.INVALID_EMAIL }).toLowerCase().refine(validateExistedEmail, MSG.NOT_EXISTED_EMAIL),
+  email: z
+    .string()
+    .email({ message: MSG.INVALID_EMAIL })
+    .toLowerCase()
+    .refine(validateExistedEmail, MSG.NOT_EXISTED_EMAIL),
   password: z.string().min(MIN_LENGTH, MSG.MIN_LENGTH_4),
   // .regex(PASSWORD_REGEX, MSG.INVALID_PASSWORD),
 });
 
-const signIn = async (prev: any, formData: FormData) => {
+const signInAction = async (prev: any, formData: FormData) => {
   const data = {
     email: formData.get("email"),
     password: formData.get("password"),
@@ -44,11 +47,7 @@ const signIn = async (prev: any, formData: FormData) => {
     }
     const ok = await bcrypt.compare(password, user?.passwrod ?? "");
     if (ok) {
-      const session = await getSession();
-      session.id = user!.id;
-      // session을 만들고 반드시 save()를 해야 쿠키에 저장된다.
-      await session.save();
-      redirect("/profile");
+      await signUserIn({ id: user.id, url: "/profile" });
     } else {
       return {
         fieldErrors: {
@@ -59,4 +58,4 @@ const signIn = async (prev: any, formData: FormData) => {
   }
 };
 
-export default signIn;
+export default signInAction;

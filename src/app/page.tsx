@@ -1,4 +1,6 @@
-import { Button } from "@/components";
+"use client";
+
+import { Button } from "@/components/common";
 import Link from "next/link";
 import "@/lib/db";
 

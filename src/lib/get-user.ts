@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import db from "./db";
-import getSession from "./session";
+import { getSession } from "./session";
 
 export const getUser = async () => {
   const session = await getSession();

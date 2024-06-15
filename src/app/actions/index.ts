@@ -1,4 +1,3 @@
-export { default as signUp } from "./sign-up";
-export { default as signIn } from "./sign-in";
-export { default as signInBySms } from "./sign-in-by-sms";
-export { default as signOut } from "./sign-out";
+export { default as signUpAction } from "./sign-up.action";
+export { default as signInAction } from "./sign-in.acition";
+export { default as signInBySmsAction } from "./sign-in-by-sms.action";
