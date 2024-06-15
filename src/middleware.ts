@@ -6,6 +6,7 @@ type Routes = {
   [key: string]: boolean;
 };
 
+// 로그인이 되어있지 않을 때만 접근이 가능한 경로
 const pulbicOnlyUrls: Routes = {
   "/": true,
   "/sign-in": true,
@@ -19,16 +20,17 @@ export const middleware = async (request: NextRequest) => {
   const session = await getSession();
   const exists = pulbicOnlyUrls[request.nextUrl.pathname];
   if (!session.id) {
-    // session.id가 없다는 것은 로그아웃이 되었다는 것을 뜻함
+    // 로그인이 되어있지 않은데 public url 이외의 경로로 접근한 경우 홈으로 이동
     if (!exists) {
       return NextResponse.redirect(new URL("/", request.url));
     }
   } else {
-    // 로그인 된 상태의 처리
+    // 로그인 된 상태에서 public url 경로로 접근한 경우 /products로 이동
     if (exists) {
       return NextResponse.redirect(new URL("/products", request.url));
     }
   }
+  // 그 외에는 접근하려는 url로 이동
 };
 
 export const config = {
