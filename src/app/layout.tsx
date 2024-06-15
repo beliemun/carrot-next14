@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="forest">
+    <html lang="en" data-theme="forest" suppressHydrationWarning>
       <body className={cn(inter.className, "flex flex-col items-center")}>
         <div className="w-full h-screen max-w-sm bg-base-300">{children}</div>
       </body>
