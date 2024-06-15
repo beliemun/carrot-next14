@@ -22,7 +22,7 @@ export const Alert = () => {
         <p className="py-4">{message}</p>
         <div className="modal-action">
           {/* if there is a button in form, it will close the modal */}
-          <>
+          <div className="space-x-4">
             {actions?.map((action, index) => (
               <button
                 key={index}
@@ -32,7 +32,7 @@ export const Alert = () => {
                 {action?.lable}
               </button>
             ))}
-          </>
+          </div>
         </div>
       </div>
     </dialog>
