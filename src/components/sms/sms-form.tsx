@@ -2,15 +2,25 @@
 
 import { signInBySmsAction } from "@/app/actions";
 import { Input, Button, Icons } from "@/components/common";
+import { useAlertStore } from "@/stores";
+import { useEffect } from "react";
 import { useFormState } from "react-dom";
 
 const initialState = {
   token: false,
-  message: undefined,
+  error: undefined,
+  alert: undefined,
 };
 
 export const SmsForm = () => {
   const [state, action] = useFormState(signInBySmsAction, initialState);
+  const { show } = useAlertStore();
+  useEffect(() => {
+    if (state.alert) {
+      const { title, message } = state.alert;
+      show({ title, message });
+    }
+  }, [state]);
   return (
     <form action={action} className="space-y-4">
       <Input
@@ -23,7 +33,7 @@ export const SmsForm = () => {
       />
       {state?.token ? (
         <Input
-          name="code"
+          name="token"
           icon={Icons.Password}
           placeholder="인증번호"
           type="text"
