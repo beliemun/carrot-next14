@@ -1,5 +1,6 @@
-import { Button, Icons } from "@/components/common";
+import { Button } from "@/components/common";
 import { SignInForm } from "@/components/sign-in";
+import { ChatBubbleLeftEllipsisIcon, CodeBracketSquareIcon } from "@heroicons/react/16/solid";
 
 export default function SignIn() {
   return (
@@ -16,14 +17,14 @@ export default function SignIn() {
             className="w-full"
             type="Link"
             href="/sign-in/github"
-            icon={Icons.Code}
+            icon={<CodeBracketSquareIcon className="size-4" />}
             label="깃허브로 계속"
           />
           <Button
             className="w-full"
             type="Link"
             href="/sign-in/sms"
-            icon={Icons.ChatBubble}
+            icon={<ChatBubbleLeftEllipsisIcon className="size-4" />}
             label="SMS로 계속"
           />
         </div>

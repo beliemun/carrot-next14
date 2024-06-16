@@ -1,8 +1,9 @@
 "use client";
 
-import { signInAction } from "@/app/actions";
+import { signInAction } from "@/actions";
 import { useFormState } from "react-dom";
-import { Button, Icons, Input } from "../common";
+import { Button, Input } from "../common";
+import { LockClosedIcon, UserIcon } from "@heroicons/react/16/solid";
 
 export const SignInForm = () => {
   const [state, action] = useFormState(signInAction, null);
@@ -13,7 +14,7 @@ export const SignInForm = () => {
     <form action={action} className="space-y-4">
       <Input
         name="email"
-        icon={Icons.User}
+        icon={<UserIcon className="size-4" />}
         placeholder="이메일"
         type="email"
         required
@@ -21,7 +22,7 @@ export const SignInForm = () => {
       />
       <Input
         name="password"
-        icon={Icons.Password}
+        icon={<LockClosedIcon className="size-4" />}
         placeholder="비밀번호"
         type="password"
         minLength={4}

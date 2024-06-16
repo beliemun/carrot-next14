@@ -1,7 +1,8 @@
 "use client";
 
-import { Button, Icons } from "@/components/common";
+import { Button } from "@/components/common";
 import { SignUpForm } from "@/components/sign-up";
+import { ChatBubbleLeftEllipsisIcon, CodeBracketSquareIcon } from "@heroicons/react/16/solid";
 
 export default function SignUp() {
   return (
@@ -18,14 +19,14 @@ export default function SignUp() {
             className="w-full"
             type="Link"
             href="/sign-in/github"
-            icon={Icons.Code}
+            icon={<CodeBracketSquareIcon className="size-4" />}
             label="깃허브로 가입"
           />
           <Button
             className="w-full"
             type="Link"
             href="/sign-in/sms"
-            icon={Icons.ChatBubble}
+            icon={<ChatBubbleLeftEllipsisIcon className="size-4" />}
             label="전화 번호로 가입"
           />
         </div>

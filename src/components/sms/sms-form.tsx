@@ -1,6 +1,6 @@
 "use client";
 
-import { signInBySmsAction } from "@/app/actions";
+import { signInBySmsAction } from "@/actions";
 import { Input, Button, Icons } from "@/components/common";
 import { useAlertStore } from "@/stores";
 import { useEffect } from "react";

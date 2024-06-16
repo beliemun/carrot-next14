@@ -1,7 +1,8 @@
 "use client";
 
-import { signUpAction } from "@/app/actions";
-import { Input, Button, Icons } from "@/components/common";
+import { signUpAction } from "@/actions";
+import { Input, Button } from "@/components/common";
+import { EnvelopeIcon, LockClosedIcon, UserIcon } from "@heroicons/react/16/solid";
 import { useFormState } from "react-dom";
 
 export const SignUpForm = () => {
@@ -10,7 +11,7 @@ export const SignUpForm = () => {
     <form className="space-y-4" action={action}>
       <Input
         name="username"
-        icon={Icons.Email}
+        icon={<EnvelopeIcon className="size-4" />}
         placeholder="이름"
         type="text"
         minLength={4}
@@ -20,7 +21,7 @@ export const SignUpForm = () => {
       />
       <Input
         name="email"
-        icon={Icons.User}
+        icon={<UserIcon className="size-4" />}
         placeholder="이메일"
         type="email"
         required
@@ -28,7 +29,7 @@ export const SignUpForm = () => {
       />
       <Input
         name="password"
-        icon={Icons.Password}
+        icon={<LockClosedIcon className="size-4" />}
         placeholder="비밀번호"
         type="password"
         minLength={4}
@@ -37,7 +38,7 @@ export const SignUpForm = () => {
       />
       <Input
         name="confirm"
-        icon={Icons.Password}
+        icon={<LockClosedIcon className="size-4" />}
         placeholder="비밀번호 확인"
         type="password"
         minLength={4}
