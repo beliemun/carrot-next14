@@ -1,10 +1,13 @@
 export const MIN_LENGTH = 4;
 export const MAX_LENGTH = 12;
 export const PASSWORD_MIN_LENGTH = 4;
-export const PASSWORD_REGEX = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/);
+export const PASSWORD_REGEX = new RegExp(
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).+$/
+);
 
 export const MSG = {
   MIN_LENGTH_4: "최소 4글자를 입력해야 합니다.",
+  MIN_LENGTH_6: "최소 6글자를 입력해야 합니다.",
   MAX_LENGTH_12: "최대 12글자를 입력해야 합니다.",
   FOBIDDEN_USERNAME: "사용이 금지된 이름입니다.",
   EXISTED_USERNAME: "이미 존재하는 이름입니다.",

@@ -24,17 +24,6 @@ export const GET = async (request: NextRequest) => {
   if (user) {
     userId = user.id;
   } else {
-    // const existedEmail = await db.user.findUnique({
-    //   where: { email },
-    //   select: { id: true },
-    // });
-    const checkUserName = await db.user.findUnique({
-      where: { username: id },
-      select: { id: true },
-    });
-    // 이름이 중복될 경우 오류 발생
-    if (checkUserName) {
-    }
     const newUser = await db.user.create({
       data: {
         // 기존 회원의 이름과 중복될 수 있다.
