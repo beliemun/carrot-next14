@@ -1,8 +1,9 @@
 "use client";
 
 import { signInBySmsAction } from "@/actions";
-import { Input, Button, Icons } from "@/components/common";
+import { Input, Button } from "@/components/common";
 import { useAlertStore } from "@/stores";
+import { LockClosedIcon, UserIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
 import { useFormState } from "react-dom";
 
@@ -25,7 +26,7 @@ export const SmsForm = () => {
     <form action={action} className="space-y-4">
       <Input
         name="phone"
-        icon={Icons.User}
+        icon={<UserIcon className="size-4" />}
         placeholder="전화번호"
         type="text"
         required
@@ -34,7 +35,7 @@ export const SmsForm = () => {
       {state?.token ? (
         <Input
           name="token"
-          icon={Icons.Password}
+          icon={<LockClosedIcon className="size-4" />}
           placeholder="인증번호"
           type="text"
           required

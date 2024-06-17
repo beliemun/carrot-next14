@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/common";
 import { SignUpForm } from "@/components/sign-up";
 import { ChatBubbleLeftEllipsisIcon, CodeBracketSquareIcon } from "@heroicons/react/16/solid";

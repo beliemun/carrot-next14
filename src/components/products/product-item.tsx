@@ -20,8 +20,10 @@ export const ProductItem = ({ id, title, price, createdAt, photo }: ProductItemP
       </div>
       <div className="flex flex-col flex-1">
         <span className="text-sm">{title}</span>
-        <span className="text-sm">{dayjs().format("YY년 MM월 DD일, A hh:mm")}</span>
-        <span className="text-lg font-semibold text-secondary">{price.toLocaleString()}원</span>
+        <span className="text-sm">{dayjs(createdAt).fromNow()}</span>
+        <span className="text-lg font-semibold text-secondary">
+          {price.toLocaleString("ko-KR")}원
+        </span>
       </div>
     </Link>
   );

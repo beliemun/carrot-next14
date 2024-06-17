@@ -1,6 +1,5 @@
 import { ProductItem } from "@/components/products";
 import db from "@/lib/db";
-import { Suspense } from "react";
 
 async function getProducts() {
   await new Promise((resolve) => setTimeout(resolve, 2000));

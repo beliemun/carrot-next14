@@ -1,8 +1,14 @@
-import "./globals.css";
+import "@/lib/db";
+import "@/styles/globals.css";
+
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
-import { Alert } from "@/components/common";
+import { Alert, ClientProvider } from "@/components/common";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +29,9 @@ export default function RootLayout({
     <html lang="en" data-theme="forest" suppressHydrationWarning>
       <body className={cn(inter.className, "flex flex-col items-center bg-base-300")}>
         <div className="w-full h-screen max-w-sm bg-base-100">{children}</div>
-        <Alert />
+        <ClientProvider>
+          <Alert />
+        </ClientProvider>
       </body>
     </html>
   );
