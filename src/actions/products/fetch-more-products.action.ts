@@ -12,7 +12,7 @@ export const fetchMoreProdcuts = async (page: number) => {
       createdAt: true,
       photo: true,
     },
-    skip: 1,
+    skip: page * 1,
     take: 1,
     orderBy: {
       createdAt: "desc",

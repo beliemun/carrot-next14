@@ -23,15 +23,21 @@ export const Alert = () => {
         <div className="modal-action">
           {/* if there is a button in form, it will close the modal */}
           <div className="space-x-4">
-            {actions?.map((action, index) => (
-              <button
-                key={index}
-                className={alertActionClassName(action?.style)}
-                onClick={action?.onClick ?? dismiss}
-              >
-                {action?.lable}
+            {actions ? (
+              actions.map((action, index) => (
+                <button
+                  key={index}
+                  className={alertActionClassName(action?.style)}
+                  onClick={action?.onClick ?? dismiss}
+                >
+                  {action?.lable}
+                </button>
+              ))
+            ) : (
+              <button className={alertActionClassName("default")} onClick={dismiss}>
+                닫기
               </button>
-            ))}
+            )}
           </div>
         </div>
       </div>
