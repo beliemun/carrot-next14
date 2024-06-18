@@ -12,7 +12,7 @@ interface ProductItemProps {
 
 export const ProductItem = ({ id, title, price, createdAt, photo }: ProductItemProps) => {
   return (
-    <Link className="flex flex-row gap-4" href={`/product/${id}`}>
+    <Link className="flex flex-row gap-4" href={`/products/${id}`}>
       <div className="relative size-24 rounded-md overflow-hidden">
         {/* Image의 사이즈를 모를 때 fill 속성을 주고, 부모 엘리먼트를 스타일링한다. */}
         {/* fill은 absolute 이기 때문에 부모에 반드시 relative 속성을 줘야한다. */}

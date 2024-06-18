@@ -15,7 +15,7 @@ interface ButtonProps {
   href?: Url;
   icon?: React.ReactNode;
   disabled?: boolean | undefined;
-  onClick?: () => Promise<void>;
+  onClick?: () => void;
 }
 
 export const Button = ({

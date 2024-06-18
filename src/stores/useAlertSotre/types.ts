@@ -2,7 +2,7 @@ export type AlertActionStyle = "default" | "primary" | "ghost" | "link";
 
 export interface AlertAction {
   lable: string;
-  style: AlertActionStyle;
+  style?: AlertActionStyle;
   onClick?: () => void | undefined;
 }
 
@@ -10,7 +10,7 @@ export interface AlertProps {
   visible: boolean;
   title?: string | undefined;
   message?: string | undefined;
-  actions?: [AlertAction, AlertAction?];
+  actions?: [AlertAction, AlertAction?] | undefined;
 }
 
 export interface AlertStore extends AlertProps {
