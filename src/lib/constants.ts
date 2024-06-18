@@ -23,3 +23,5 @@ export const MSG = {
   NOT_ENOUGH_CODE: "여섯 자리 숫자를 입력해주세요.",
   WRONG_PASSWORD: "비밀번호가 틀렸습니다.",
 };
+
+export const SIZE = 3;
