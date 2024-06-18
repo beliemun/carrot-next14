@@ -1,9 +1,9 @@
 "use client";
 
-import { signInAction } from "@/actions";
 import { useFormState } from "react-dom";
 import { Button, Input } from "../common";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/16/solid";
+import { signInAction } from "@/actions/sign-in";
 
 export const SignInForm = () => {
   const [state, action] = useFormState(signInAction, null);

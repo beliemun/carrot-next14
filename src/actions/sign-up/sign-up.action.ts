@@ -72,7 +72,7 @@ const formSchema = z
     path: ["confirm"],
   });
 
-const signUp = async (prev: any, formData: FormData) => {
+export const signUpAction = async (prev: any, formData: FormData) => {
   const data = {
     username: formData.get("username"),
     email: formData.get("email"),
@@ -105,5 +105,3 @@ const signUp = async (prev: any, formData: FormData) => {
     redirect("/profile");
   }
 };
-
-export default signUp;

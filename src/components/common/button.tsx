@@ -15,6 +15,7 @@ interface ButtonProps {
   href?: Url;
   icon?: React.ReactNode;
   disabled?: boolean | undefined;
+  isLoading?: boolean | undefined;
   onClick?: () => void;
 }
 
@@ -53,7 +54,7 @@ export const Button = ({
       )}
       onClick={() => setClicked(true)}
     >
-      {renderChildren(clicked)}
+      {renderChildren(disabled || clicked)}
     </Link>
   ) : (
     <button
@@ -66,7 +67,7 @@ export const Button = ({
       )}
       disabled={disabled || pending}
     >
-      {renderChildren(pending)}
+      {renderChildren(disabled || pending)}
     </button>
   );
 };

@@ -24,7 +24,7 @@ const formSchema = z.object({
   // .regex(PASSWORD_REGEX, MSG.INVALID_PASSWORD),
 });
 
-const signInAction = async (prev: any, formData: FormData) => {
+export const signInAction = async (prev: any, formData: FormData) => {
   const data = {
     email: formData.get("email"),
     password: formData.get("password"),
@@ -57,5 +57,3 @@ const signInAction = async (prev: any, formData: FormData) => {
     }
   }
 };
-
-export default signInAction;

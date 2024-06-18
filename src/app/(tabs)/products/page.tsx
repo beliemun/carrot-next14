@@ -1,8 +1,9 @@
-import { ProductItem } from "@/components/products";
 import db from "@/lib/db";
+import { Prisma } from "@prisma/client";
+import { ProductList } from "@/components/products";
 
-async function getProducts() {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+async function getInitialProducts() {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const products = await db.product.findMany({
     select: {
       id: true,
@@ -11,18 +12,22 @@ async function getProducts() {
       createdAt: true,
       photo: true,
     },
+    take: 1,
+    orderBy: {
+      createdAt: "desc",
+    },
   });
   return products;
 }
 
+// 선언된 함수를 기준으로 primsa가 output type을 생성해줄 수 있다.
+export type InitialProducts = Prisma.PromiseReturnType<typeof getInitialProducts>;
+
 export default async function Products() {
-  const products = await getProducts();
+  const initialProducts = await getInitialProducts();
   return (
     <main className="h-screen w-full p-4">
-      <h1 className="text-3xl mb-4">상품</h1>
-      {products.map((product) => (
-        <ProductItem key={product.id} {...product} />
-      ))}
+      <ProductList initialProducts={initialProducts} />
     </main>
   );
 }

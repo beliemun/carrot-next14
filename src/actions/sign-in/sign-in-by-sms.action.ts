@@ -49,7 +49,10 @@ interface ActionState {
   alert?: { title: string; message: string } | undefined;
 }
 
-const signInBySms = async (prevState: ActionState, formData: FormData): Promise<ActionState> => {
+export const signInBySms = async (
+  prevState: ActionState,
+  formData: FormData
+): Promise<ActionState> => {
   const phone = formData.get("phone");
   const token = formData.get("token");
 
@@ -120,5 +123,3 @@ const signInBySms = async (prevState: ActionState, formData: FormData): Promise<
     }
   }
 };
-
-export default signInBySms;

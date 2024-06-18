@@ -1,6 +1,6 @@
 "use client";
 
-import { signUpAction } from "@/actions";
+import { signUpAction } from "@/actions/sign-up";
 import { Input, Button } from "@/components/common";
 import { EnvelopeIcon, LockClosedIcon, UserIcon } from "@heroicons/react/16/solid";
 import { useFormState } from "react-dom";

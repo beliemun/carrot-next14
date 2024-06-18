@@ -16,7 +16,14 @@ export const ProductItem = ({ id, title, price, createdAt, photo }: ProductItemP
       <div className="relative size-24 rounded-md overflow-hidden">
         {/* Image의 사이즈를 모를 때 fill 속성을 주고, 부모 엘리먼트를 스타일링한다. */}
         {/* fill은 absolute 이기 때문에 부모에 반드시 relative 속성을 줘야한다. */}
-        <Image src={photo} alt={title} fill />
+        <Image
+          className="object-cover"
+          src={photo}
+          alt={title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          priority
+        />
       </div>
       <div className="flex flex-col flex-1">
         <span className="text-sm">{title}</span>

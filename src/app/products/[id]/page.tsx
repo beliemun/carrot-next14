@@ -1,5 +1,5 @@
 import { Button } from "@/components/common";
-import { DeleteProductForm } from "@/components/product-detail";
+import { DeleteProductForm } from "@/components/product";
 import db from "@/lib/db";
 import { getUser } from "@/lib/get-user";
 import { getSession } from "@/lib/session";
@@ -8,7 +8,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 const getProductDetail = async (id: number) => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const product = await db.product.findUnique({
     where: { id: id },
     include: {
@@ -20,7 +20,6 @@ const getProductDetail = async (id: number) => {
       },
     },
   });
-  console.log(product);
   return product;
 };
 
@@ -29,7 +28,7 @@ const getIsProdcutOwner = async (userId: number) => {
   return session.id === userId;
 };
 
-export default async function ProductDetail({ params }: { params: { id: string } }) {
+export default async function Product({ params }: { params: { id: string } }) {
   const id = Number(params.id);
   if (isNaN(id)) {
     return notFound();
@@ -45,7 +44,7 @@ export default async function ProductDetail({ params }: { params: { id: string }
     <main className="h-screen w-full">
       <section className="space-y-4 p-4">
         <div className="relative aspect-square col-center rounded-lg overflow-hidden">
-          <Image src={product.photo} alt={product.title} fill />
+          <Image className="object-cover" src={product.photo} alt={product.title} fill />
         </div>
         <div className="flex items-center gap-2">
           {user.avatar ? (
@@ -76,7 +75,7 @@ export default async function ProductDetail({ params }: { params: { id: string }
         {isProductOwner ? (
           <DeleteProductForm id={product.id} />
         ) : (
-          <Button type="Link" label="채팅하기" />
+          <Button type="Link" label="채팅하기" disabled />
         )}
       </section>
     </main>
