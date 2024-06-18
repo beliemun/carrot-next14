@@ -12,11 +12,11 @@ interface ProductListProps {
 }
 
 export const ProductList = ({ initialProducts }: ProductListProps) => {
+  const { show } = useAlertStore();
   const [products, setProducts] = useState(initialProducts);
+  const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [isLastPage, setIsLatPage] = useState(false);
-  const [page, setPage] = useState(0);
-  const { show, dismiss } = useAlertStore();
   const handleFetchMore = async () => {
     setIsLoading(true);
     const newProducts = await fetchMoreProdcuts(page + 1);
