@@ -1,19 +1,12 @@
 "use server";
 
-import { MSG } from "@/lib/constants";
 import db from "@/lib/db";
-import { z } from "zod";
+import { productSchema } from "@/lib/schemas";
 import { getSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 
-const productSchema = z.object({
-  photo: z.string({ required_error: MSG.REQUIRED }),
-  title: z.string({ required_error: MSG.REQUIRED }),
-  price: z.coerce.number({ required_error: MSG.REQUIRED }),
-  description: z.string({ required_error: MSG.REQUIRED }),
-});
-
-export const uploadProductAction = async (action: any, formData: FormData) => {
+// react hook form 에서 state를 관리하므로 state가 있을 필요가 없다.
+export const uploadProductAction = async (formData: FormData) => {
   const data = {
     photo: formData.get("photo"),
     title: formData.get("title"),

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { InputHTMLAttributes } from "react";
+import { ForwardedRef, InputHTMLAttributes, forwardRef } from "react";
 
 interface InputProps {
   className?: string;
@@ -8,12 +8,21 @@ interface InputProps {
   errors?: string[] | undefined;
 }
 
-export const Input = ({ className = "", errors, name, icon, ...rest }: InputProps & InputHTMLAttributes<HTMLInputElement>) => {
+const Input = (
+  {
+    className = "",
+    errors,
+    name,
+    icon,
+    ...rest
+  }: InputProps & InputHTMLAttributes<HTMLInputElement>,
+  ref: ForwardedRef<HTMLInputElement>
+) => {
   return (
     <div className={cn("space-y-2", className)}>
       <label className={"input input-bordered flex items-center gap-2"}>
         {icon}
-        <input name={name} className="grow" {...rest} />
+        <input ref={ref} name={name} className="grow" {...rest} />
       </label>
       {errors?.map((error, index) => (
         <p className="text-error text-sm" key={index}>
@@ -23,3 +32,5 @@ export const Input = ({ className = "", errors, name, icon, ...rest }: InputProp
     </div>
   );
 };
+
+export default forwardRef(Input);

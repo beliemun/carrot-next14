@@ -1,12 +1,15 @@
 "use client";
 import { uploadProductAction, getUploadUrl } from "@/actions/product/upload-product.action";
 import { Button, Input } from "@/components/common";
+import { ProductFormType, productSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
 import { useAlertStore } from "@/stores";
 import { PhotoIcon } from "@heroicons/react/24/solid";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useFormState } from "react-dom";
+import { useForm } from "react-hook-form";
 
 export default function AddProduct() {
   const { show, dismiss } = useAlertStore();
@@ -14,8 +17,14 @@ export default function AddProduct() {
   const [preview, setPreview] = useState<string | undefined>(undefined);
   // CF에서 받은 1회성 업로드 전용 URL
   const [uploadUrl, setUploadUrl] = useState(undefined);
-  // 실제 이미지가 위치한 CD의 클라우드 URL
-  const [photoId, setPhotoId] = useState(undefined);
+  // Zod Schema를 사용하여 Validation을 할 수 있다.
+  const [file, setFile] = useState<File | undefined>(undefined);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<ProductFormType>({ resolver: zodResolver(productSchema) });
 
   const onImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -24,22 +33,28 @@ export default function AddProduct() {
     if (files) {
       // 사용자가 이미지 파일을 선택하면 로컬 파일 주소를 준비하고, CF에 Presigned Url을 요청한다.
       const file = files[0];
+      setFile(file);
       const url = URL.createObjectURL(file);
       setPreview(url);
       const { success, result } = await getUploadUrl();
       if (success) {
         const { id, uploadURL } = result;
         setUploadUrl(uploadURL);
-        setPhotoId(id);
+        setValue("photo", `https://imagedelivery.net/2dge226vdVwb9hPmYeHZNQ/${id}`);
       }
     }
   };
 
-  // 프로덕트를 생성하는 액션이 실행되기 전에 실행하는 함수
-  const interceptAction = async (_: any, formData: FormData) => {
+  // 프로덕트를 생성하는 액션이 실행되기 전에 실행하는 함수.
+  // ** react hook form이 사용되면 useFormState을 사용할 필요가 없어진다.
+  // ** form의 state와 error가 react hook form에서 처리되기 때문이다.
+  const onSubmit = handleSubmit(async (data: ProductFormType) => {
+    if (!file) {
+      return;
+    }
     // 1. CF에 이미지 업로드
     const cloudFlareForm = new FormData();
-    cloudFlareForm.append("file", formData.get("photo")!);
+    cloudFlareForm.append("file", file);
     if (!uploadUrl) return;
     const response = await fetch(uploadUrl, {
       method: "POST",
@@ -62,21 +77,26 @@ export default function AddProduct() {
       });
       return;
     }
-    // 2. formData에서 photo를 파일에서 string으로 교체
-    // form으로 받은 photo를 CF에 업로드하고나온 url로 'photo'의 fromData를 교체한다.
-    // 기존에는 file 형태의 formData였지만 string으로 교체된다.
-    const photoUrl = `https://imagedelivery.net/2dge226vdVwb9hPmYeHZNQ/${photoId}`;
-    formData.set("photo", photoUrl);
+
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("price", String(data.price));
+    formData.append("description", data.description);
+    formData.append("photo", data.photo);
     // 3. updateProductAction 호출
-    return uploadProductAction(_, formData);
+    return uploadProductAction(formData);
+  });
+
+  // handleSubmit으로 부터 onValied가 호출되었다면 data는 이미 validate된 상태이다.
+  const onValied = async () => {
+    await onSubmit();
   };
 
-  const [state, action] = useFormState(interceptAction, null);
   return (
     <main className="w-full h-screen">
       <div className="p-4">
         <h1 className="text-3xl">상품 추가하기</h1>
-        <form className="space-y-4" action={action}>
+        <form className="space-y-4" action={onValied}>
           <label
             htmlFor="photo"
             className={cn(
@@ -89,8 +109,8 @@ export default function AddProduct() {
             {!preview ? (
               <>
                 <PhotoIcon className="size-24 opacity" />
-                {state?.fieldErrors.photo ? (
-                  <span className="text-error">{state.fieldErrors.photo}</span>
+                {errors.photo?.message ? (
+                  <span className="text-error">{errors.photo.message}</span>
                 ) : (
                   <span>사진을 추가해주세요.</span>
                 )}
@@ -102,31 +122,34 @@ export default function AddProduct() {
               name="photo"
               placeholder="사진"
               type="file"
-              onChange={onImageChange}
               required
-              errors={state?.fieldErrors.photo}
+              // photo 는 string이어야만 하기 때문에 register에 등록하지 않는다. 하지만 나중에 해야 함(?)
+              // {...register("photo")}
+              errors={errors.photo?.message ? [errors.photo?.message] : undefined}
+              onChange={onImageChange}
             />
           </label>
           <Input
-            name="title"
             placeholder="제목"
             type="text"
             required
-            errors={state?.fieldErrors.title}
+            {...register("title")}
+            // 기존의 errors 필드는 zod의 에러 아웃풋 형식을 따라 만들어졌으므로 아래와 같이 타입을 맞춰준다.
+            errors={errors.title?.message ? [errors.title?.message] : undefined}
           />
           <Input
-            name="price"
             placeholder="가격"
             type="number"
             required
-            errors={state?.fieldErrors.price}
+            {...register("price")}
+            errors={errors.price?.message ? [errors.price?.message] : undefined}
           />
           <Input
-            name="description"
             placeholder="설명"
             type="text"
             required
-            errors={state?.fieldErrors.description}
+            {...register("description")}
+            errors={errors.description?.message ? [errors.description?.message] : undefined}
           />
           <Button className="w-full" type="Button" label="업로드" />
         </form>
