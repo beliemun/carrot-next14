@@ -46,7 +46,7 @@ export default async function Product({ params }: { params: { id: string } }) {
         <div className="relative aspect-square col-center rounded-lg overflow-hidden">
           <Image
             className="object-cover"
-            // CF에서 제공하는 최대 해상도로 보기 위해서 '/public' variable 추가
+            // CF에서 제공하는 최대 해상도로 보기 위해서 '/public' variants 추가
             src={`${product.photo}/public`}
             alt={product.title}
             fill

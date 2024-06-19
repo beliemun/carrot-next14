@@ -12,7 +12,9 @@ export default function AddProduct() {
   const { show, dismiss } = useAlertStore();
   const router = useRouter();
   const [preview, setPreview] = useState<string | undefined>(undefined);
+  // CF에서 받은 1회성 업로드 전용 URL
   const [uploadUrl, setUploadUrl] = useState(undefined);
+  // 실제 이미지가 위치한 CD의 클라우드 URL
   const [photoId, setPhotoId] = useState(undefined);
 
   const onImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {

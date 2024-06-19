@@ -7,6 +7,7 @@ import {
   ChatBubbleBottomCenterIcon as ChatIconSolid,
   ShoppingBagIcon as ShopIconSolid,
   UserIcon as UserIconSolid,
+  PlusIcon,
 } from "@heroicons/react/24/solid";
 import {
   HomeIcon as HomeIconOutline,
@@ -59,6 +60,15 @@ export const TabBar = () => {
         ) : (
           <UserIconOutline className="size-8" />
         )}
+      </Link>
+      <Link
+        href={"/add-product"}
+        className={cn(
+          "absolute bottom-20 right-4 bg-primary rounded-full size-14",
+          "shadow-lg shadow-black/50 hover:scale-110 transition"
+        )}
+      >
+        <PlusIcon className="text-base size-8" />
       </Link>
     </div>
   );
