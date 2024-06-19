@@ -44,7 +44,13 @@ export default async function Product({ params }: { params: { id: string } }) {
     <main className="h-screen w-full">
       <section className="space-y-4 p-4">
         <div className="relative aspect-square col-center rounded-lg overflow-hidden">
-          <Image className="object-cover" src={product.photo} alt={product.title} fill />
+          <Image
+            className="object-cover"
+            // CF에서 제공하는 최대 해상도로 보기 위해서 '/public' variable 추가
+            src={`${product.photo}/public`}
+            alt={product.title}
+            fill
+          />
         </div>
         <div className="flex items-center gap-2">
           {user.avatar ? (

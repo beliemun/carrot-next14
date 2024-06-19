@@ -22,6 +22,7 @@ export const MSG = {
   UNABLED_NUMBER: "사용할 수 없는 전화번호 입니다.",
   NOT_ENOUGH_CODE: "여섯 자리 숫자를 입력해주세요.",
   WRONG_PASSWORD: "비밀번호가 틀렸습니다.",
+  REQUIRED: "필수로 입력해야 하는 값입니다.",
 };
 
 export const SIZE = 3;

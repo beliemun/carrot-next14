@@ -18,7 +18,8 @@ export const ProductItem = ({ id, title, price, createdAt, photo }: ProductItemP
         {/* fill은 absolute 이기 때문에 부모에 반드시 relative 속성을 줘야한다. */}
         <Image
           className="object-cover"
-          src={photo}
+          // 썸네일로 보여지기 위해 '/avatar' variable 추가
+          src={`${photo}/avatar`}
           alt={title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
