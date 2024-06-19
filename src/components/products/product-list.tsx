@@ -35,7 +35,7 @@ export const ProductList = ({ initialProducts }: ProductListProps) => {
   }, [page]);
 
   return (
-    <div>
+    <div className="relative">
       <h1 className="text-3xl mb-4">상품</h1>
       <div className="space-y-4">
         {products.map((product) => (
