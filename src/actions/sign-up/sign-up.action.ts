@@ -102,6 +102,6 @@ export const signUpAction = async (prev: any, formData: FormData) => {
     session.id = user.id;
     // save를 할 때 암화화가 진행된다.
     await session.save();
-    redirect("/profile");
+    redirect("/home");
   }
 };

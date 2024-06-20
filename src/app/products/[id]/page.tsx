@@ -41,7 +41,7 @@ export default async function Product({ params }: { params: { id: string } }) {
   const user = await getUser();
 
   return (
-    <main className="h-screen w-full">
+    <main className="min-h-screen w-full">
       <section className="space-y-4 p-4">
         <div className="relative aspect-square col-center rounded-lg overflow-hidden">
           <Image
@@ -50,6 +50,7 @@ export default async function Product({ params }: { params: { id: string } }) {
             src={`${product.photo}/public`}
             alt={product.title}
             fill
+            priority
           />
         </div>
         <div className="flex items-center gap-2">
@@ -60,6 +61,7 @@ export default async function Product({ params }: { params: { id: string } }) {
               alt="user-avatar"
               width={56}
               height={56}
+              priority
             />
           ) : (
             <div className="size-14 rounded-full bg-base-300 col-center">

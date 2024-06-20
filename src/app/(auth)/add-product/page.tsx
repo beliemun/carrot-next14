@@ -93,7 +93,7 @@ export default function AddProduct() {
   };
 
   return (
-    <main className="w-full h-screen">
+    <main className="w-full min-h-screen">
       <div className="p-4">
         <h1 className="text-3xl">상품 추가하기</h1>
         <form className="space-y-4" action={onValied}>

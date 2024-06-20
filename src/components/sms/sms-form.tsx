@@ -1,6 +1,6 @@
 "use client";
 
-import { signInBySmsAction } from "@/actions";
+import { signInBySmsAction } from "@/actions/sign-in";
 import { Input, Button } from "@/components/common";
 import { useAlertStore } from "@/stores";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/24/solid";

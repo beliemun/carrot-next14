@@ -26,7 +26,7 @@ export const middleware = async (request: NextRequest) => {
   } else {
     // 로그인 된 상태에서 public url 경로로 접근한 경우 /products로 이동
     if (exists) {
-      return NextResponse.redirect(new URL("/products", request.url));
+      return NextResponse.redirect(new URL("/home", request.url));
     }
   }
   // 그 외에는 접근하려는 url로 이동

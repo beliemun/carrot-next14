@@ -5,7 +5,7 @@ import { signUserOut } from "@/lib/session";
 export default async function Profile() {
   const user = await getUser();
   return (
-    <main className="h-screen w-full">
+    <main className="min-h-screen w-full">
       <div className="p-4">
         <h1 className="text-3xl">반갑습니다.</h1>
         {user ? <p className="mt-2">{`${user?.username}님`}</p> : null}

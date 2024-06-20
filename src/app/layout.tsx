@@ -28,10 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="forest" suppressHydrationWarning>
       <body className={cn(inter.className, "flex flex-col items-center bg-base-300")}>
-        <div className="w-full max-w-sm bg-base-100">{children}</div>
         <ClientProvider>
           <Alert />
         </ClientProvider>
+        <div className="w-full max-w-sm bg-base-100">{children}</div>
       </body>
     </html>
   );

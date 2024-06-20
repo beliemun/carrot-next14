@@ -47,7 +47,7 @@ export const signInAction = async (prev: any, formData: FormData) => {
     }
     const ok = await bcrypt.compare(password, user?.passwrod ?? "");
     if (ok) {
-      await signUserIn({ id: user.id, url: "/profile" });
+      await signUserIn({ id: user.id, url: "/home" });
     } else {
       return {
         fieldErrors: {

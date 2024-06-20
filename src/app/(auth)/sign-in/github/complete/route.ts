@@ -35,5 +35,5 @@ export const GET = async (request: NextRequest) => {
     });
     userId = newUser.id;
   }
-  await signUserIn({ id: userId, url: "/profile" });
+  await signUserIn({ id: userId, url: "/home" });
 };

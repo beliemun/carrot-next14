@@ -4,7 +4,7 @@ import { ChatBubbleLeftEllipsisIcon, CodeBracketSquareIcon } from "@heroicons/re
 
 export default function SignIn() {
   return (
-    <main className="h-screen w-full">
+    <main className="min-h-screen w-full">
       <div className="p-4">
         <h1 className="text-3xl">로그인</h1>
         <p className="mt-2">로그인을 위해 이메일과 비밀번호를 입력하세요.</p>

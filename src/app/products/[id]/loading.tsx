@@ -2,7 +2,7 @@ import { PhotoIcon } from "@heroicons/react/24/solid";
 
 export default function Loading() {
   return (
-    <main className="h-screen w-full">
+    <main className="min-h-screen w-full">
       <section className="space-y-4 p-4">
         <div className="skeleton aspect-square col-center">
           <PhotoIcon className="w-24 opacity-10" />

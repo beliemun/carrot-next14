@@ -26,8 +26,8 @@ export const TabBar = () => {
     cn(isCurrentPath(url) ? "text-primary active" : "text-primary");
   return (
     <div className="btm-nav max-w-sm left-0 right-0 mx-auto">
-      <Link href={"/products"} className={getClassName("/products")}>
-        {isCurrentPath("/products") ? (
+      <Link href={"/home"} className={getClassName("/home")}>
+        {isCurrentPath("/home") ? (
           <HomeIconSolid className="size-8" />
         ) : (
           <HomeIconOutline className="size-8" />

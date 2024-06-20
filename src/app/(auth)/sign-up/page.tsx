@@ -4,7 +4,7 @@ import { ChatBubbleLeftEllipsisIcon, CodeBracketSquareIcon } from "@heroicons/re
 
 export default function SignUp() {
   return (
-    <main className="h-screen w-full">
+    <main className="min-h-screen w-full">
       <div className="p-4">
         <h1 className="text-3xl">환영합니다!</h1>
         <p className="mt-2">가입을 위해 아래의 양식을 작성해주세요.</p>

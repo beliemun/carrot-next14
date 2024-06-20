@@ -49,7 +49,7 @@ interface ActionState {
   alert?: { title: string; message: string } | undefined;
 }
 
-export const signInBySms = async (
+export const signInBySmsAction = async (
   prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> => {

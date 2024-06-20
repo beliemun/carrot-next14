@@ -1,9 +1,9 @@
 "use client";
 
-import { InitialProducts } from "@/app/(tabs)/products/page";
 import { ProductItem } from "./product-item";
 import { useEffect, useRef, useState } from "react";
 import { fetchMoreProdcuts } from "@/actions/products";
+import { InitialProducts } from "@/app/(tabs)/home/page";
 
 interface ProductListProps {
   initialProducts: InitialProducts;
