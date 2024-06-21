@@ -1,32 +1,16 @@
+import { getProductDetail } from "@/actions/product";
 import { Button } from "@/components/common";
 import { DeleteProductForm } from "@/components/product";
-import db from "@/lib/db";
 import { getUser } from "@/lib/get-user";
 import { getSession } from "@/lib/session";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-export const getProductDetail = async (id: number) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  const product = await db.product.findUnique({
-    where: { id: id },
-    include: {
-      user: {
-        select: {
-          username: true,
-          avatar: true,
-        },
-      },
-    },
-  });
-  return product;
-};
-
-export const getIsProdcutOwner = async (userId: number) => {
+export async function getIsProductOwner(userId: number) {
   const session = await getSession();
   return session.id === userId;
-};
+}
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
   const product = await getProductDetail(Number(params.id));
@@ -44,7 +28,7 @@ export default async function Product({ params }: { params: { id: string } }) {
   if (!product) {
     return notFound();
   }
-  const isProductOwner = await getIsProdcutOwner(product.userId);
+  const isProductOwner = await getIsProductOwner(product.userId);
   const user = await getUser();
 
   return (

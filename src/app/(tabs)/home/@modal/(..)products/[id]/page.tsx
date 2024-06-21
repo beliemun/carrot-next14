@@ -1,8 +1,9 @@
-import { getIsProdcutOwner, getProductDetail } from "@/app/products";
+import { getProductDetail } from "@/actions/product";
+import { getIsProductOwner } from "@/app/products";
 import { Button, CloseModalButton } from "@/components/common";
 import { DeleteProductForm } from "@/components/product";
 import { getUser } from "@/lib/get-user";
-import { UserIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -15,7 +16,7 @@ export default async function ProductModal({ params }: { params: { id: string } 
   if (!product) {
     return notFound();
   }
-  const isProductOwner = await getIsProdcutOwner(product.userId);
+  const isProductOwner = await getIsProductOwner(product.userId);
   const user = await getUser();
   return (
     <div className="fixed top-0 left-0 right-0 mx-auto max-w-sm w-full min-h-screen col-center bg-neutral-800/90 p-8">

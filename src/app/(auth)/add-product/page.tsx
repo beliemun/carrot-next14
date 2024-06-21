@@ -1,5 +1,5 @@
 "use client";
-import { uploadProductAction, getUploadUrl } from "@/actions/product/upload-product.action";
+import { getUploadUrl, uploadProductAction } from "@/actions/product";
 import { Button, Input } from "@/components/common";
 import { ProductFormType, productSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";

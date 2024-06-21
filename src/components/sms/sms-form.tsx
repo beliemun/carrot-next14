@@ -21,7 +21,7 @@ export const SmsForm = () => {
       const { title, message } = state.alert;
       show({ title, message });
     }
-  }, [state]);
+  }, [state, show]);
   return (
     <form action={action} className="space-y-4">
       <Input
