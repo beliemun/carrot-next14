@@ -3,6 +3,7 @@
 import db from "@/lib/db";
 import { productSchema } from "@/lib/schemas";
 import { getSession } from "@/lib/session";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 
 // react hook form 에서 state를 관리하므로 state가 있을 필요가 없다.
@@ -30,6 +31,7 @@ export const uploadProductAction = async (formData: FormData) => {
         },
         select: { id: true },
       });
+      revalidateTag("products");
       redirect(`/products/${product.id}`);
     }
   }

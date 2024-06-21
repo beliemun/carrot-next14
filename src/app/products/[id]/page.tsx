@@ -28,6 +28,13 @@ export const getIsProdcutOwner = async (userId: number) => {
   return session.id === userId;
 };
 
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const product = await getProductDetail(Number(params.id));
+  return {
+    title: product?.title,
+  };
+}
+
 export default async function Product({ params }: { params: { id: string } }) {
   const id = Number(params.id);
   if (isNaN(id)) {
