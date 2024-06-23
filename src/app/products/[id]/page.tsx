@@ -1,6 +1,7 @@
 import { getProductDetail } from "@/actions/product";
 import { Button } from "@/components/common";
 import { DeleteProductForm } from "@/components/product";
+import db from "@/lib/db";
 import { getUser } from "@/lib/get-user";
 import { getSession } from "@/lib/session";
 import { UserIcon } from "@heroicons/react/24/solid";
@@ -70,7 +71,9 @@ export default async function Product({ params }: { params: { id: string } }) {
         </div>
       </section>
       <section className="fixed bottom-0 flex flex-row justify-between items-center max-w-sm w-full bg-base-300 p-4">
-        <span className="text-xl font-semibold">{product.price.toLocaleString("ko-KR")}원</span>
+        <span className="text-xl font-semibold">
+          {product.price.toLocaleString("ko-KR")}원
+        </span>
         {isProductOwner ? (
           <DeleteProductForm id={product.id} />
         ) : (
@@ -79,4 +82,12 @@ export default async function Product({ params }: { params: { id: string } }) {
       </section>
     </main>
   );
+}
+
+export async function generateStaticParams() {
+  const products = await db.product.findMany({
+    select: { id: true },
+  });
+
+  return products.map((product) => ({ id: String(3) }));
 }
