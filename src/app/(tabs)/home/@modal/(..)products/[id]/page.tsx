@@ -18,6 +18,7 @@ export default async function ProductModal({ params }: { params: { id: string } 
   }
   const isProductOwner = await getIsProductOwner(product.userId);
   const user = await getUser();
+
   return (
     <div className="fixed top-0 left-0 right-0 mx-auto max-w-sm w-full min-h-screen col-center bg-neutral-800/90 p-8">
       <div className="relative w-full bg-black rounded-2xl">
