@@ -38,7 +38,6 @@ export default async function Post({ params }: { params: { id: number } }) {
     return notFound();
   }
   const { isLiked, count } = await (await getCachedLike({ postId: id, userId: session.id! }))();
-  console.log("post", post);
 
   return (
     <main className="min-h-screen p-4">
