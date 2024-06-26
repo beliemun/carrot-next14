@@ -24,10 +24,12 @@ export default async function Life() {
       <div className="space-y-8">
         {posts.map((post, index) => {
           return (
-            <Link href={`/posts/${post.id}`} className="flex flex-col gap-2" key={index}>
+            <div className="flex flex-col gap-2" key={index}>
               <div className="divider my-1 first:hidden" />
-              <h1 className="font-semibold text-lg">{post.title}</h1>
-              <p>{post.description}</p>
+              <Link href={`/posts/${post.id}`}>
+                <h1 className="font-semibold text-lg">{post.title}</h1>
+                <p>{post.description}</p>
+              </Link>
               <div>{dayjs(post.createdAt).fromNow()}</div>
               <div className="flex flex-row *:gap-2 ">
                 <div className="row-center">
@@ -40,7 +42,7 @@ export default async function Life() {
                   {post._count.comments}
                 </div>
               </div>
-            </Link>
+            </div>
           );
         })}
       </div>
