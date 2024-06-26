@@ -1,4 +1,4 @@
-import { getProductDetail } from "@/actions/product";
+import { getProductAction } from "@/actions/products";
 import { getIsProductOwner } from "@/app/products";
 import { Button, CloseModalButton } from "@/components/common";
 import { DeleteProductForm } from "@/components/product";
@@ -12,7 +12,7 @@ export default async function ProductModal({ params }: { params: { id: string } 
   if (isNaN(id)) {
     return notFound();
   }
-  const product = await getProductDetail(id);
+  const product = await getProductAction(id);
   if (!product) {
     return notFound();
   }

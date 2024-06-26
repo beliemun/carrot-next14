@@ -2,8 +2,8 @@
 
 import { ProductItem } from "./product-item";
 import { useEffect, useRef, useState } from "react";
-import { fetchMoreProdcuts } from "@/actions/products";
 import { InitialProducts } from "@/app/(tabs)/home/page";
+import { getProdcutsAction } from "@/actions/products";
 
 interface ProductListProps {
   initialProducts: InitialProducts;
@@ -18,7 +18,7 @@ export const ProductList = ({ initialProducts }: ProductListProps) => {
       async (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
         if (entries[0].isIntersecting && trigger.current) {
           observer.unobserve(trigger.current);
-          const newProducts = await fetchMoreProdcuts(page + 1);
+          const newProducts = await getProdcutsAction(page + 1);
           if (newProducts.length !== 0) {
             setPage((prev) => prev + 1);
             setProducts((prev) => [...prev, ...newProducts]);

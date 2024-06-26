@@ -32,7 +32,8 @@ export async function uploadProductAction(formData: FormData) {
         select: { id: true },
       });
       revalidateTag("products");
-      redirect(`/products/${product.id}`);
+      // redirect(`/products/${product.id}`);
+      redirect("/home");
     }
   }
 }

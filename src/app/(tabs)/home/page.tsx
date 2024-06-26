@@ -1,18 +1,22 @@
 import { Prisma } from "@prisma/client";
 import { ProductList } from "@/components/products";
-import { fetchMoreProdcuts } from "@/actions/products";
+import { getProdcutsAction } from "@/actions/products";
 import { unstable_cache } from "next/cache";
 // 선언된 함수를 기준으로 primsa가 output type을 생성해줄 수 있다.
-export type InitialProducts = Prisma.PromiseReturnType<typeof fetchMoreProdcuts>;
+export type InitialProducts = Prisma.PromiseReturnType<typeof getProdcutsAction>;
 
 const getCachedProducts = unstable_cache(
   async () => {
-    console.log("hit");
-    return fetchMoreProdcuts(0);
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    return getProdcutsAction(0);
   },
   ["products"],
   { tags: ["products"] }
 );
+
+export const metadata = {
+  title: "상품",
+};
 
 export default async function Products() {
   const initialProducts = await getCachedProducts();

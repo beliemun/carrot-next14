@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteProductAction } from "@/actions/product";
+import { deleteProductAction } from "@/actions/products";
 import { Button } from "../common";
 import { useAlertStore } from "@/stores";
 import { useRouter } from "next/navigation";
@@ -10,18 +10,10 @@ export const DeleteProductForm = ({ id }: { id: number }) => {
   const router = useRouter();
   const handleDeleteProduct = async () => {
     await deleteProductAction(id);
+    router.replace("/home");
     show({
       title: "상품 삭제하기",
       message: "상품이 삭제되었습니다.",
-      actions: [
-        {
-          lable: "확인",
-          onClick: () => {
-            router.back();
-            dismiss();
-          },
-        },
-      ],
     });
   };
   const handleClickButton = () => {

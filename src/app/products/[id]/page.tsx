@@ -1,4 +1,4 @@
-import { getProductDetail } from "@/actions/product";
+import { getProductAction } from "@/actions/products";
 import { Button } from "@/components/common";
 import { DeleteProductForm } from "@/components/product";
 import db from "@/lib/db";
@@ -14,7 +14,7 @@ export async function getIsProductOwner(userId: number) {
 }
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
-  const product = await getProductDetail(Number(params.id));
+  const product = await getProductAction(Number(params.id));
   return {
     title: product?.title,
   };
@@ -25,7 +25,7 @@ export default async function Product({ params }: { params: { id: string } }) {
   if (isNaN(id)) {
     return notFound();
   }
-  const product = await getProductDetail(id);
+  const product = await getProductAction(id);
   if (!product) {
     return notFound();
   }
@@ -71,9 +71,7 @@ export default async function Product({ params }: { params: { id: string } }) {
         </div>
       </section>
       <section className="fixed bottom-0 flex flex-row justify-between items-center max-w-sm w-full bg-base-300 p-4">
-        <span className="text-xl font-semibold">
-          {product.price.toLocaleString("ko-KR")}원
-        </span>
+        <span className="text-xl font-semibold">{product.price.toLocaleString("ko-KR")}원</span>
         {isProductOwner ? (
           <DeleteProductForm id={product.id} />
         ) : (

@@ -11,7 +11,7 @@ const initialData: AlertProps = {
 const useAlertStore = create<AlertStore>((set, get) => ({
   ...initialData,
   show: ({ title, message, ...rest }) => set({ visible: true, title, message, ...rest }),
-  dismiss: () => set({ visible: false }),
+  dismiss: () => set({ ...initialData }),
 }));
 
 export default useAlertStore;

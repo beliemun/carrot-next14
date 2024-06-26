@@ -1,5 +1,5 @@
 "use client";
-import { getUploadUrl, uploadProductAction } from "@/actions/product";
+import { getUploadUrl, uploadProductAction } from "@/actions/products";
 import { Button, Input } from "@/components/common";
 import { ProductFormType, productSchema } from "@/lib/schemas";
 import { cn } from "@/lib/utils";
@@ -7,8 +7,7 @@ import { useAlertStore } from "@/stores";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { useFormState } from "react-dom";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function AddProduct() {

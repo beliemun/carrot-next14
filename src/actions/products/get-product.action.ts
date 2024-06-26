@@ -2,7 +2,7 @@
 
 import db from "@/lib/db";
 
-export async function getProductDetail(id: number) {
+export async function getProductAction(id: number) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   const product = await db.product.findUnique({
     where: { id: id },

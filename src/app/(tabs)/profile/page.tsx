@@ -2,6 +2,10 @@ import { Button } from "@/components/common";
 import { getUser } from "@/lib/get-user";
 import { signUserOut } from "@/lib/session";
 
+export const metadata = {
+  title: "내정보",
+};
+
 export default async function Profile() {
   const user = await getUser();
   return (

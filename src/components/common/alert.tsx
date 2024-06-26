@@ -28,7 +28,12 @@ export const Alert = () => {
                 <button
                   key={index}
                   className={alertActionClassName(action?.style)}
-                  onClick={action?.onClick ?? dismiss}
+                  onClick={() => {
+                    if (action && action.onClick) {
+                      action.onClick();
+                    }
+                    dismiss();
+                  }}
                 >
                   {action?.lable}
                 </button>
