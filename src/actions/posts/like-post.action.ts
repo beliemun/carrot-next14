@@ -1,19 +1,17 @@
 "use server";
 
 import db from "@/lib/db";
-import { getSession } from "@/lib/session";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
-export const likePostAction = async ({ postId }: { postId: number }) => {
-  const session = await getSession();
+export const likePostAction = async ({ postId, userId }: { postId: number; userId: number }) => {
   try {
     await db.like.create({
       data: {
-        userId: session.id!,
+        userId,
         postId,
       },
     });
-    revalidatePath(`/posts/${postId}`);
+    revalidateTag(`like_status_${postId}`);
   } catch {
     return null;
   }

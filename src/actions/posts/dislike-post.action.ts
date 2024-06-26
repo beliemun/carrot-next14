@@ -1,21 +1,19 @@
 "use server";
 
 import db from "@/lib/db";
-import { getSession } from "@/lib/session";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
-export const dislikePostAction = async ({ postId }: { postId: number }) => {
-  const session = await getSession();
+export const dislikePostAction = async ({ postId, userId }: { postId: number; userId: number }) => {
   try {
     await db.like.delete({
       where: {
         userId_postId: {
           postId,
-          userId: session.id!,
+          userId,
         },
       },
     });
-    revalidatePath(`/posts/${postId}`);
+    revalidateTag(`like_status_${postId}`);
   } catch {
     return null;
   }

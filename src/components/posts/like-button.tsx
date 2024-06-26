@@ -2,19 +2,31 @@
 
 import { dislikePostAction, likePostAction } from "@/actions/posts";
 import { Button } from "../common";
-import { HandThumbUpIcon } from "@heroicons/react/24/solid";
+import { HandThumbDownIcon, HandThumbUpIcon } from "@heroicons/react/24/solid";
 
 interface LikeButtonProps {
   postId: number;
+  userId: number;
   isLiked: boolean;
+  count?: number;
 }
 
-export const LikeButton = ({ postId, isLiked }: LikeButtonProps) => {
+export const LikeButton = ({ postId, userId, isLiked, count = 0 }: LikeButtonProps) => {
   return (
-    <form action={() => (isLiked ? dislikePostAction({ postId }) : likePostAction({ postId }))}>
+    <form
+      action={() =>
+        isLiked ? dislikePostAction({ postId, userId }) : likePostAction({ postId, userId })
+      }
+    >
       <Button
-        label={isLiked ? "공감취소" : "공감하기"}
-        icon={<HandThumbUpIcon className="size-5" />}
+        label={`${isLiked ? "좋아요" : "싫어요"}(${count})`}
+        icon={
+          isLiked ? (
+            <HandThumbUpIcon className="size-5" />
+          ) : (
+            <HandThumbDownIcon className="size-5" />
+          )
+        }
         type="Button"
       />
     </form>

@@ -1,20 +1,30 @@
-import { getPostAction } from "@/actions/posts";
-import { getIsLiked } from "@/actions/posts/get-is-liked.action";
+import { getLikeStatusAction, getPostAction } from "@/actions/posts";
 import { LikeButton } from "@/components/posts";
+import { getSession } from "@/lib/session";
 import { EyeIcon, UserIcon } from "@heroicons/react/24/solid";
 import dayjs from "dayjs";
 import { unstable_cache } from "next/cache";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-const getCachedPost = async (id: number) =>
+const getCachedPost = async ({ postId }: { postId: number }) =>
   unstable_cache(
     async () => {
-      const post = await getPostAction(id);
+      const post = await getPostAction({ postId });
       return post;
     },
-    [`post_${id}`],
+    [`post_${postId}`],
     { tags: ["postDetail"] }
+  );
+
+const getCachedLike = async ({ postId, userId }: { postId: number; userId: number }) =>
+  unstable_cache(
+    async () => {
+      const post = await getLikeStatusAction({ postId, userId });
+      return post;
+    },
+    [`post-like-status`],
+    { tags: [`like_status_${postId}`] }
   );
 
 export default async function Post({ params }: { params: { id: number } }) {
@@ -22,11 +32,12 @@ export default async function Post({ params }: { params: { id: number } }) {
   if (isNaN(id)) {
     return notFound();
   }
-  const post = await (await getCachedPost(id))();
+  const session = await getSession();
+  const post = await (await getCachedPost({ postId: id }))();
   if (!post) {
     return notFound();
   }
-  const isLiked = await getIsLiked({ postId: post.id });
+  const { isLiked, count } = await (await getCachedLike({ postId: id, userId: session.id! }))();
   console.log("post", post);
 
   return (
@@ -58,7 +69,7 @@ export default async function Post({ params }: { params: { id: number } }) {
           <EyeIcon className="size-6" />
           조회수 {post.views}
         </div>
-        <LikeButton isLiked={isLiked} postId={post.id} />
+        <LikeButton postId={post.id} userId={session.id!} isLiked={isLiked} count={count} />
       </div>
     </main>
   );
