@@ -1,17 +1,28 @@
-import { getChatRoomAction } from "@/actions/chats";
 import { notFound } from "next/navigation";
+import { getChatRoomAction } from "@/actions/chats";
+import getMessagesAction from "@/actions/chats/get-messages.action";
+import { ChatList, MessageInputForm } from "@/components/chats";
+import { getSession } from "@/lib/session";
 
 export default async function Chats({ params }: { params: { id: string } }) {
-  console.log(0);
   const roomId = params.id;
-  if (!roomId) {
-    return notFound();
-  }
   const room = await getChatRoomAction({ roomId });
-  console.log("room:", room);
   if (!room) {
     return notFound();
   }
-  console.log();
-  return <>Chats!</>;
+  const messages = await getMessagesAction({ roomId });
+  const session = await getSession();
+  const userId = session.id!;
+  return (
+    <main className="relative max-w-sm w-full min-h-screen">
+      <div className="flex flex-col">
+        <ChatList initialMessages={messages} userId={userId} />
+      </div>
+      <div className="absolute bottom-0 left-0 w-full h-20">
+        <div className="fixed max-w-sm w-full">
+          <MessageInputForm />
+        </div>
+      </div>
+    </main>
+  );
 }

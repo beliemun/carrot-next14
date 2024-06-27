@@ -13,7 +13,7 @@ interface CommentFormProps {
   userId: number;
 }
 
-export const CommentForm = ({ postId, userId }: CommentFormProps) => {
+export const CommentInputForm = ({ postId, userId }: CommentFormProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const {
     register,
@@ -41,7 +41,7 @@ export const CommentForm = ({ postId, userId }: CommentFormProps) => {
   };
   const { ref, ...rest } = register("comment");
   return (
-    <form action={onValid} className="fixed bottom-0 row-center w-full p-4 gap-4 bg-base-300">
+    <form action={onValid} className="row-center w-full p-4 gap-4 bg-base-300">
       <Input
         className="w-full"
         {...rest}

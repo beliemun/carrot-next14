@@ -23,7 +23,6 @@ export async function getChatRoomAction({ roomId }: { roomId: string }) {
   const session = await getSession();
   const userId = session.id!;
   const hasRoom = Boolean(room?.users.find((room) => room.id === userId));
-  console.log(room, hasRoom);
   if (!hasRoom) {
     return null;
   } else {

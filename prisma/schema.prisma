@@ -113,5 +113,5 @@ model Message {
   room       ChatRoom @relation(fields: [chatRoomId], references: [id], onDelete: Cascade)
   chatRoomId String
 
-  test String
+  text String
 }
