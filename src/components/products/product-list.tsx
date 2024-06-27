@@ -2,22 +2,22 @@
 
 import { ProductItem } from "./product-item";
 import { useEffect, useRef, useState } from "react";
-import { InitialProducts } from "@/app/(tabs)/home/page";
+import { GetProdcutsType } from "@/app/(tabs)/home/page";
 import { getProdcutsAction } from "@/actions/products";
 
 interface ProductListProps {
-  initialProducts: InitialProducts;
+  initialProducts: GetProdcutsType;
 }
 
 export const ProductList = ({ initialProducts }: ProductListProps) => {
   const [products, setProducts] = useState(initialProducts);
   const [page, setPage] = useState(0);
-  const trigger = useRef<HTMLDivElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const observer = new IntersectionObserver(
       async (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
-        if (entries[0].isIntersecting && trigger.current) {
-          observer.unobserve(trigger.current);
+        if (entries[0].isIntersecting && divRef.current) {
+          observer.unobserve(divRef.current);
           const newProducts = await getProdcutsAction(page + 1);
           if (newProducts.length !== 0) {
             setPage((prev) => prev + 1);
@@ -26,8 +26,8 @@ export const ProductList = ({ initialProducts }: ProductListProps) => {
         }
       }
     );
-    if (trigger.current) {
-      observer.observe(trigger.current);
+    if (divRef.current) {
+      observer.observe(divRef.current);
     }
     return () => {
       observer.disconnect();
@@ -42,7 +42,7 @@ export const ProductList = ({ initialProducts }: ProductListProps) => {
           <ProductItem key={product.id} {...product} />
         ))}
       </div>
-      <div className="col-center w-full p-4" ref={trigger}>
+      <div className="col-center w-full p-4" ref={divRef}>
         <span className="loading loading-dots laoding-sm text-primary" />
       </div>
     </div>

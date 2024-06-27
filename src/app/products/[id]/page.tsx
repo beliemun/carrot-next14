@@ -1,6 +1,7 @@
 import { getProductAction } from "@/actions/products";
 import { Button } from "@/components/common";
 import { DeleteProductForm } from "@/components/product";
+import { OpenChatForm } from "@/components/product/open-chat-from";
 import db from "@/lib/db";
 import { getUser } from "@/lib/get-user";
 import { getSession } from "@/lib/session";
@@ -75,7 +76,7 @@ export default async function Product({ params }: { params: { id: string } }) {
         {isProductOwner ? (
           <DeleteProductForm id={product.id} />
         ) : (
-          <Button type="Link" label="채팅하기" disabled />
+          <OpenChatForm userId={product.userId} />
         )}
       </section>
     </main>

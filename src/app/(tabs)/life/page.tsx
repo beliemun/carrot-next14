@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const getCachedPosts = unstable_cache(
   async () => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
     return getPostsAction();
   },
   ["posts"],

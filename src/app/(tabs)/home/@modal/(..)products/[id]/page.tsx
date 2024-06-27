@@ -2,6 +2,7 @@ import { getProductAction } from "@/actions/products";
 import { getIsProductOwner } from "@/app/products";
 import { Button, CloseModalButton } from "@/components/common";
 import { DeleteProductForm } from "@/components/product";
+import { OpenChatForm } from "@/components/product/open-chat-from";
 import { getUser } from "@/lib/get-user";
 import { UserIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
@@ -67,7 +68,7 @@ export default async function ProductModal({ params }: { params: { id: string } 
           {isProductOwner ? (
             <DeleteProductForm id={product.id} />
           ) : (
-            <Button type="Link" label="채팅하기" disabled />
+            <OpenChatForm userId={product.userId} />
           )}
         </section>
       </div>

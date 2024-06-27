@@ -82,6 +82,7 @@ export default function AddProduct() {
     formData.append("price", String(data.price));
     formData.append("description", data.description);
     formData.append("photo", data.photo);
+    console.log(formData);
     // 3. updateProductAction 호출
     return uploadProductAction(formData);
   });
