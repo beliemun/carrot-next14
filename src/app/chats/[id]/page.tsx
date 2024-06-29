@@ -13,6 +13,7 @@ export default async function Chats({ params }: { params: { id: string } }) {
   }
   const messages = await getMessagesAction({ roomId });
   const user = await getUser();
+
   return (
     <main className="relative max-w-sm w-full min-h-screen">
       <ChatList initialMessages={messages} user={user} roomId={roomId} />
