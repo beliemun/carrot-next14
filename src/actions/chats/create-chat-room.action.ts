@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 export async function createChatRoomAction({ userId }: { userId: number }) {
   const session = await getSession();
   let room;
-
   room = await db.chatRoom.findFirst({
     where: {
       AND: [{ users: { some: { id: session.id! } } }, { users: { some: { id: userId } } }],

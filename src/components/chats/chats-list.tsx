@@ -1,14 +1,11 @@
 "use client";
 
-import { GetMessagesType } from "@/actions/chats/get-messages.action";
 import { useEffect, useRef, useState } from "react";
 import { Input, Button } from "@/components/common";
 import { ChatBubbleItem } from "./chat-bubble-item";
 import { User } from "@prisma/client";
 import { RealtimeChannel, createClient } from "@supabase/supabase-js";
-import { cn } from "@/lib/utils";
-import { channel } from "diagnostics_channel";
-import { sendMessageAction } from "@/actions/chats";
+import { GetMessagesType, sendMessageAction } from "@/actions/chats";
 
 interface ChatListProps {
   initialMessages: GetMessagesType;
