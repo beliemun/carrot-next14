@@ -15,7 +15,7 @@ export default async function getMessagesAction({ roomId }: { roomId: string }) 
         },
       },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: "asc" },
   });
   return messages;
 }

@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
 import { getChatRoomAction } from "@/actions/chats";
 import getMessagesAction from "@/actions/chats/get-messages.action";
-import { ChatList, MessageInputForm } from "@/components/chats";
-import { getSession } from "@/lib/session";
+import { ChatList } from "@/components/chats";
 import { getUser } from "@/lib/get-user";
 
 export default async function Chats({ params }: { params: { id: string } }) {
