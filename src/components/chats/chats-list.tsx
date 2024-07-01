@@ -13,11 +13,7 @@ interface ChatListProps {
   roomId: string;
 }
 
-const SB_API_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrbnJ2ZW1kbHJjZnZmcHdicmxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTk3OTgyNDMsImV4cCI6MjAzNTM3NDI0M30.7TcNyo_CQBtdcjx5Q_pYFaTkFs-BWbW1YmEyzrRzzYE";
-const SB_URL = "https://qknrvemdlrcfvfpwbrlg.supabase.co";
-
-const client = createClient(SB_API_KEY, SB_URL);
+const client = createClient(process.env.NEXT_PUBLIC_SB_URL!, process.env.NEXT_PUBLIC_SB_API_KEY!);
 
 export const ChatList = ({ initialMessages, user, roomId }: ChatListProps) => {
   const [messages, setMessages] = useState(initialMessages);
