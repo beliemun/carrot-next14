@@ -10,21 +10,7 @@ dayjs.locale("ko");
 import { ReactNode, useEffect } from "react";
 
 export const ClientProvider = ({ children }: { children: ReactNode }) => {
-  useEffect(() => {
-    // const initDayjsLocale = async () => {
-    //   const locale = navigator.language;
-    //   dayjs.locale(locale);
-    //   await (
-    //     await fetch("/api/update-user", {
-    //       method: "get",
-    //       headers: {
-    //         "accept-language": locale,
-    //       },
-    //     })
-    //   ).json();
-    // };
-    // initDayjsLocale();
-  }, []);
+  useEffect(() => {}, []);
 
   return <>{children}</>;
 };
